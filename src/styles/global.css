@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tuitui-input.error {
+    @apply border-red-600
+}

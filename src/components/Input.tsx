@@ -1,18 +1,24 @@
+import classnames from 'classnames'
 import React, { InputHTMLAttributes } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { ReactComponent as Helper } from '../assets/icons/Exclamation-Circle.svg'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   loading?: boolean
   label: string
+  name: string
   icon?: boolean
   error?: boolean
   caption?: string
+  isRequired?: string
 }
 
-export default function Input ({ caption, error = false, icon = false, label, loading = false }: InputProps) {
+export default function Input ({ caption, error = false, icon = false, label, loading = false, name, isRequired, placeholder }: InputProps) {
+  const { register, formState: { errors } } = useFormContext()
+
   return (
-        <div className="w-full flex gap-2 p-2 flex-col items-start">
-            <label>
+        <div className="w-full">
+            <label className="w-full flex gap-2 py-2 flex-col items-start">
                 <div className="flex flex-row gap-[6px] p-0 items-center cursor-pointer">
                     <p className='font-medium text-sm text-black flex-none -order-none flex-grow-0'>{label}</p>
                     {icon && (
@@ -21,11 +27,17 @@ export default function Input ({ caption, error = false, icon = false, label, lo
                         </div>
                     )}
                 </div>
-                <div className='w-full flex flex-row items-center px-2 py-[14px] gap-[10px] bg-white border border-solid border-dark-gray rounded-sm'>
+                <div className={classnames('w-full flex flex-row items-center px-2 py-[14px] gap-[10px] bg-white border border-solid border-dark-gray rounded-sm tuitui-input', {
+                  error: !!errors[name]
+                })}>
                     <input className='w-full font-medium text-sm order-1 flex items-center'
-                        placeholder='Placeholder'
+                        placeholder={placeholder}
                         type="text"
                         disabled={loading}
+                        {...register(name, {
+                          disabled: loading,
+                          required: isRequired
+                        })}
                     />
                 </div>
                 {caption && (
