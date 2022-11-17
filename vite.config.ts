@@ -19,6 +19,11 @@ export default defineConfig({
   root: 'src',
   build: {
     outDir: '../dist',
+    rollupOptions: {
+        external: [
+          /^node:.*/,
+        ]
+      }
   },
   server: {
     watch: {
