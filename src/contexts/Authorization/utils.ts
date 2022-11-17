@@ -1,5 +1,5 @@
-import { UserProps } from '../../@types/authorization'
-import { Api } from '../../services/api'
+import { UserProps } from '@types'
+import { Api } from '@services/api'
 
 export async function LoginRequest (email: string, password: string) {
   try {

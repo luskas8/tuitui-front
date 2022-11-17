@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { AuthContextProps, AuthProviderProps, UserProps } from '../../@types/authorization'
+import { AuthContextProps, AuthProviderProps, UserProps } from '@types'
 import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from './utils'
 
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps)

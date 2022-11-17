@@ -1,11 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { ReactComponent as Branding } from '../assets/branding/branding.svg'
-import { ReactComponent as Tuitui } from '../assets/branding/tuitui.svg'
-import { Button } from '../components/Button'
-import { Form } from '../components/Form'
-import Input from '../components/Input'
+import { ReactComponent as Branding } from '@assets/branding/branding.svg'
+import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
+import { Button } from '@components/Button'
+import { Form } from '@components/Form'
+import Input from '@components/Input'
 
 export function SignIn () {
   const methods = useForm()

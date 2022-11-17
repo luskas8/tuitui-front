@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import React, { InputHTMLAttributes } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { ReactComponent as Helper } from '../assets/icons/Exclamation-Circle.svg'
+import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   loading?: boolean

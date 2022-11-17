@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form'
-import { ReactComponent as Helper } from '../assets/icons/Exclamation-Circle.svg'
+import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
 
 interface FormProps {
   methods: UseFormReturn<FieldValues, any>
