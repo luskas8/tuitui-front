@@ -9,7 +9,8 @@ interface FormProps {
 }
 
 export function Form ({ methods, onSubmit, children }: FormProps) {
-  const { formState: { isValid, isSubmitted } } = methods
+  const { formState: { isValid, isSubmitted, errors } } = methods
+  const error = Object.keys(errors).shift()
 
   return (
         <FormProvider
@@ -20,14 +21,14 @@ export function Form ({ methods, onSubmit, children }: FormProps) {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className='w-full flex flex-col justify-center items-start gap-2 p-3'
             >
-                {!isValid && isSubmitted && (
+                {!isValid && isSubmitted && error && (
                     <div className='w-full flex justify-start gap-6 items-start px-4 py-2 border border-solid border-red-600 bg-red-600 text-white'>
                         <div className='w-5 flex flex-col h-full items-center py-1'>
                             <Helper className='fill-white' width='100%' height='100%' />
                         </div>
                         <div className='py-1 flex flex-col items-start font-normal'>
                             <h1 className='text-base'>Erro</h1>
-                            <p className='text-sm'>Campo obrigatório</p>
+                            <p className='text-sm'>{String(errors[error]?.message)}</p>
                         </div>
                     </div>
                 )}

@@ -24,6 +24,7 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.39.4",
         "react-router-dom": "^6.4.3",
+        "react-tooltip": "^4.5.0",
         "sort-by": "^1.2.0",
         "vite-plugin-svgr": "^2.2.2",
         "vite-tsconfig-paths": "^3.5.2"

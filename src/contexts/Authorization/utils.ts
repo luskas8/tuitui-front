@@ -22,6 +22,6 @@ export function getUserLocalStorage () {
     return null
   }
 
-  const user = JSON.parse(json)
+  const user = JSON.parse(json) as UserProps
   return user ?? null // mesmo que passe pela primeira verificação como algo inválido retorna nulo
 }

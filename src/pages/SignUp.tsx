@@ -1,36 +1,46 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { ReactComponent as Branding } from '@assets/branding/branding.svg'
+import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
 import { Form } from '@components/Form'
 import Input from '@components/Input'
 
-export function SignIn () {
+export function SignUp () {
   const methods = useForm()
   const navigate = useNavigate()
 
   function submit (data: any) {
-    const { formState: { isValid } } = methods
+    const { formState: { isValid }, setError } = methods
 
     if (isValid) {
+      if (data.password !== data['check-password']) {
+        setError('password', {
+          type: 'validate',
+          message: 'As senhas devem ser iguais'
+        })
+        setError('check-password', {
+          type: 'validate',
+          message: 'As senhas devem ser iguais'
+        })
+        return
+      }
+
       navigate('/homepage')
     }
-  }
-
-  function handleSignUpClick () {
-    console.log('AA')
-    navigate('/signup')
   }
 
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>
             <div className='md:w-1/2 w-full h-screen flex justify-center items-center md:flex-col bg-white'>
-                <Branding />
-                <h1 className='font-medium text-6xl text-light-black decoration-inherit'>
-                    conectando ideias
-                </h1>
+                <div>
+                    <h1 className=''>
+                        Criar nova conta
+                    </h1>
+                    <h2 className=''>
+                        Só mais alguns passos e já vamos poder ficar mais conectados!
+                    </h2>
+                </div>
                 <div className='w-full max-w-[340px] flex items-center mt-14'>
                     <Form
                         onSubmit={submit}
@@ -38,10 +48,18 @@ export function SignIn () {
                     >
                         <Form.Group>
                             <Input
+                                name="fullname"
+                                label='Nome competo'
+                                placeholder='Digite seu nome competo'
+                                isRequired='Campo obrigatório'
+                            />
+                            <Input
                                 name="username"
                                 label='Nome de usuário'
                                 placeholder='Digite seu nome de usuário'
                                 isRequired='Campo obrigatório'
+                                icon
+                                helper={['O nome de usuário é como será conhecido no Tuitui.', 'Este não poderá ser alterado e será utilizado para ingressar no Tuitui, então escolha bem!']}
                             />
                             <Input
                                 name="password"
@@ -50,20 +68,18 @@ export function SignIn () {
                                 placeholder='Digite seu senha'
                                 isRequired='Campo obrigatório'
                             />
+                            <Input
+                                name="check-password"
+                                type="password"
+                                label='Senha'
+                                placeholder='Confirme sua nova senha'
+                                isRequired='Campo obrigatório'
+                            />
                         </Form.Group>
-                        <Link className='text-sm text-dark-purple font-normal text-center hover:text-purple'
-                            to="/"
-                        >
-                            Esqueci minha senha
-                        </Link>
                         <div className='w-full flex flex-col gap-2 pt-8'>
                             <Button
-                                title='Entrar'
+                                title='Criar conta'
                                 type='submit'
-                            />
-                            <Button.Secondary
-                                title='Criar nova conta'
-                                onClick={handleSignUpClick}
                             />
                         </div>
                     </Form>
