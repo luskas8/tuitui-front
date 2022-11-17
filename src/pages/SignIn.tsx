@@ -1,16 +1,22 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as Branding } from '../assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '../assets/branding/tuitui.svg'
+import { Button } from '../components/Button'
 import { Form } from '../components/Form'
 import Input from '../components/Input'
 
 export function SignIn () {
   const methods = useForm()
+  const navigate = useNavigate()
 
   function submit (data: any) {
-    console.log(data)
+    const { formState: { isValid } } = methods
+
+    if (isValid) {
+      navigate('/homepage')
+    }
   }
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>
@@ -33,6 +39,7 @@ export function SignIn () {
                             />
                             <Input
                                 name="password"
+                                type="password"
                                 label='Senha'
                                 placeholder='Digite seu senha'
                                 isRequired='Campo obrigatório'
@@ -43,8 +50,15 @@ export function SignIn () {
                         >
                             Esqueci minha senha
                         </Link>
-                        <button type='submit'>Entrar</button>
-                        <button type='submit'>Criar nova conta</button>
+                        <div className='w-full flex flex-col gap-2 pt-8'>
+                            <Button
+                                title='Entrar'
+                                type='submit'
+                            />
+                            <Button.Secondary
+                                title='Criar nova conta'
+                            />
+                        </div>
                     </Form>
                 </div>
             </div>

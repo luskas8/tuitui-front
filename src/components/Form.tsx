@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form'
 import { ReactComponent as Helper } from '../assets/icons/Exclamation-Circle.svg'
 
@@ -9,11 +9,8 @@ interface FormProps {
 }
 
 export function Form ({ methods, onSubmit, children }: FormProps) {
-  const { formState: { errors, isValid, isSubmitted } } = methods
+  const { formState: { isValid, isSubmitted } } = methods
 
-  useEffect(() => {
-    console.log(errors, isValid)
-  })
   return (
         <FormProvider
             {...methods}

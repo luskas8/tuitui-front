@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.tuitui-input.error {
+.tuitui-input--block.error {
     @apply border-red-600
+}
+
+.tuitui-input.disabled {
+    @apply text-slate-400 pointer-events-none
+}
+
+.tuitui-input--block.disabled {
+    @apply border-slate-400 pointer-events-none
 }
