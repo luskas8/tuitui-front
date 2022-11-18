@@ -26,7 +26,7 @@ export function SignUp () {
         return
       }
 
-      navigate('/homepage')
+      navigate('/app/homepage')
     }
   }
 

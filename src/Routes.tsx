@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Homepage } from '@pages/Homepage'
 import { SignIn } from '@pages/SignIn'
 import { SignUp } from '@pages/SignUp'
+import { LockPage } from '@pages/LockPage'
 
 export const routes = createBrowserRouter([
   {
@@ -14,7 +15,13 @@ export const routes = createBrowserRouter([
     element: <SignUp />
   },
   {
-    path: '/homepage',
-    element: <Homepage />
+    path: '/app',
+    element: <LockPage />,
+    children: [
+      {
+        path: 'homepage',
+        element: <Homepage />
+      }
+    ]
   }
 ])

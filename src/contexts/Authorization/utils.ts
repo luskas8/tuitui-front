@@ -7,6 +7,7 @@ export async function LoginRequest (email: string, password: string) {
 
     return request.data
   } catch (error) {
+    console.log(error)
     return null
   }
 }

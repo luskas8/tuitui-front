@@ -15,7 +15,7 @@ export function SignIn () {
     const { formState: { isValid } } = methods
 
     if (isValid) {
-      navigate('/homepage')
+      navigate('/app/homepage')
     }
   }
 
