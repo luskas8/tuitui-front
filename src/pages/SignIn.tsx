@@ -20,7 +20,6 @@ export function SignIn () {
   }
 
   function handleSignUpClick () {
-    console.log('AA')
     navigate('/signup')
   }
 
