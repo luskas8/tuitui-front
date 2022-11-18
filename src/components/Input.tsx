@@ -24,14 +24,14 @@ export default function Input ({ caption = true, type, icon = false, helper, lab
                     <p className='font-medium text-sm flex-none -order-none flex-grow-0'>{label}</p>
                     {icon && (
                         <div data-tip='' data-for='helper' className='w-4 h-4 flex justify-center items-center'>
-                            <Helper width="100%" height="100%" />
+                            <Helper className='fill-slate-500' width="100%" height="100%" />
                             <ReactTolltip id='helper' effect='solid' className='max-w-[210px] font-normal text-sm'>
                                 {helper?.map((help, index) => <p key={index}>{String(help)}</p>)}
                             </ReactTolltip>
                         </div>
                     )}
                 </div>
-                <div className={classnames('w-full text-sm font-normal flex flex-row items-center px-2 py-[14px] gap-[10px]bg-white border border-solid border-dark-gray rounded-sm tuitui-input--block focus-within:border-purple focus-within:outline-purple focus-within:outline focus-within:outline-4', {
+                <div className={classnames('w-full text-sm font-normal flex flex-row items-center px-2 py-[12px] gap-[8px]bg-white border border-solid border-dark-gray rounded-sm tuitui-input--block focus-within:border-purple focus-within:outline-purple focus-within:outline focus-within:outline-4', {
                   error: !!errors[name],
                   disabled: loading || disabled
                 })}>

@@ -1,3 +1,4 @@
+import { AlertProvider } from '@contexts/Alert'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
@@ -8,7 +9,9 @@ import './styles/global.css'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
         <AuthProvider>
-            <RouterProvider router={routes}/>
+            <AlertProvider>
+                <RouterProvider router={routes}/>
+            </AlertProvider>
         </AuthProvider>
   </React.StrictMode>
 )

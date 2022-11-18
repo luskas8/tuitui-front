@@ -32,16 +32,16 @@ export function SignUp () {
 
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>
-            <div className='md:w-1/2 w-full h-screen flex justify-center items-center md:flex-col bg-white'>
-                <div>
-                    <h1 className=''>
+            <div className='md:w-1/2 w-full h-screen flex gap-8 justify-center items-center md:flex-col bg-white py-12 px-3'>
+                <div className='flex flex-col gap-1 px-12'>
+                    <h1 className='font-medium text-5xl text-black'>
                         Criar nova conta
                     </h1>
-                    <h2 className=''>
+                    <h2 className='font-medium text-3xl text-light-black'>
                         Só mais alguns passos e já vamos poder ficar mais conectados!
                     </h2>
                 </div>
-                <div className='w-full max-w-[340px] flex items-center mt-14'>
+                <div className='w-full max-w-[340px] flex items-center'>
                     <Form
                         onSubmit={submit}
                         methods={methods}
@@ -49,8 +49,8 @@ export function SignUp () {
                         <Form.Group>
                             <Input
                                 name="fullname"
-                                label='Nome competo'
-                                placeholder='Digite seu nome competo'
+                                label='Nome completo'
+                                placeholder='Digite seu nome completo'
                                 isRequired='Campo obrigatório'
                             />
                             <Input

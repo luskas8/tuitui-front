@@ -26,12 +26,12 @@ export function SignIn () {
 
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>
-            <div className='md:w-1/2 w-full h-screen flex justify-center items-center md:flex-col bg-white'>
+            <div className='md:w-1/2 w-full h-screen flex gap-8 justify-center items-center md:flex-col bg-white'>
                 <Branding />
                 <h1 className='font-medium text-6xl text-light-black decoration-inherit'>
                     conectando ideias
                 </h1>
-                <div className='w-full max-w-[340px] flex items-center mt-14'>
+                <div className='w-full max-w-[340px] flex items-center'>
                     <Form
                         onSubmit={submit}
                         methods={methods}
