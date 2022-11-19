@@ -3,7 +3,7 @@ import { useAuth } from '@hooks/useAuth'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-export function LockPage () {
+export function Authentication () {
   const { email } = useAuth()
 
   // if (!email) {

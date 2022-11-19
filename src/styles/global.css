@@ -16,19 +16,26 @@
 
 .tuitui-button {
   @apply flex justify-center items-center gap-[10px] px-4 py-3
-  text-sm bg-dark-blue text-white fill-white rounded
+  font-normal text-sm bg-dark-blue text-white fill-white rounded
   hover:bg-purple active:bg-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
   disabled:bg-slate-400
 }
 
 .tuitui-button.small {
-  @apply px-[6px] py-3
+  @apply py-[6px] px-3
+}
+
+.tuitui-button.info {
+  @apply bg-blue
+  hover:bg-purple active:bg-dark-black active:outline-none
+  focus:outline focus:outline-4 focus:outline-purple
+  disabled:bg-slate-400
 }
 
 .tuitui-button.secondary {
   @apply flex justify-center items-center gap-[10px] px-4 py-3
-  text-sm bg-white border border-solid border-dark-blue text-dark-blue fill-dark-blue rounded
+  font-normal text-sm bg-white border border-solid border-dark-blue text-dark-blue fill-dark-blue rounded
   hover:border-purple hover:text-purple hover:fill-purple
   active:border-dark-black active:text-dark-black active:fill-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
@@ -37,7 +44,7 @@
 
 .tuitui-button.tertiary {
   @apply flex justify-center items-center gap-[10px] px-4 py-3
-  text-sm bg-white text-dark-blue fill-dark-blue rounded
+  font-normal text-sm bg-white text-dark-blue fill-dark-blue rounded
   hover:text-purple hover:fill-purple
   active:border-dark-black active:text-dark-black active:fill-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
@@ -45,5 +52,9 @@
 }
 
 .tuitui-button.tertiary.small {
-  @apply px-1
+  @apply px-1 py-[6px]
+}
+
+.tuitui-article--preview + .tuitui-article--preview {
+  @apply mt-2
 }
