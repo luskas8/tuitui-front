@@ -13,9 +13,9 @@ export function Navigation () {
         <div data-name='logo-area' className='h-full py-2 pr-[1px] pl-4'>
           <Branding width="100%" height="100%" />
         </div>
-        <div data-name='action-area' className='flex w-full'>
+        <div data-name='action-area' className='flex items-center w-full h-full'>
           <div className='self-center w-full h-full'>{mainArea}</div>
-          <div className='self-center w-auto h-full px-1'>{actionsArea}</div>
+          <div className='self-center w-auto h-full px-1 flex justify-center items-center'>{actionsArea}</div>
         </div>
         <div data-name='user-area' className='w-36 max-h-12'>
           <Button.Tertiary

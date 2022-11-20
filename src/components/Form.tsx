@@ -6,9 +6,10 @@ interface FormProps {
   methods: UseFormReturn<FieldValues, any>
   onSubmit: (data: any) => void
   children: ReactNode
+  className?: string
 }
 
-export function Form ({ methods, onSubmit, children }: FormProps) {
+export function Form ({ methods, onSubmit, children, className }: FormProps) {
   const { formState: { errors } } = methods
   const { setMessage, setVisibility } = useAlert()
   const error = Object.keys(errors).shift()
@@ -29,7 +30,7 @@ export function Form ({ methods, onSubmit, children }: FormProps) {
             <form
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onSubmit={methods.handleSubmit(onSubmit)}
-                className='w-full flex flex-col justify-center items-start gap-2 p-3'
+                className={String('tuitui-form w-full flex flex-col justify-center items-start gap-2 p-3 ').concat(String(className))}
             >
                 {children}
             </form>

@@ -17,10 +17,14 @@ interface NavigationProviderProps {
 
 export function NavigationProvider ({ children }: NavigationProviderProps) {
   const [actionsArea, updateActions] = useState<Child>([])
-  const [mainArea, setMainArea] = useState<Child>([])
+  const [mainArea, updateMainArea] = useState<Child>([])
 
   function setActions (actions: Child) {
     updateActions(actions)
+  }
+
+  function setMainArea (main: Child) {
+    updateMainArea(main)
   }
 
   return (

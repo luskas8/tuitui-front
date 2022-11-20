@@ -1,5 +1,6 @@
 import React from 'react'
 import { ReactComponent as Search } from '@assets/icons/Search.svg'
+import { ReactComponent as Sad } from '@assets/icons/Sad.svg'
 import { Button } from './Button'
 import { Article as ArticleType } from '@types'
 
@@ -14,6 +15,20 @@ interface ArticleContainerProps {
 }
 
 Article.Container = ({ articles }: ArticleContainerProps) => {
+  if (!articles.length) {
+    return (
+      <div className='w-full h-60 bg-white drop-shadow-lg flex flex-col gap-4 justify-center items-center rounded-sm'>
+        <h1 className='w-32 h-32'>
+          <Sad width="100%" height="100%" />
+        </h1>
+        <h2 className='flex flex-col items-center font-medium text-sm'>
+          <span>Ops... Não econtramos nada</span>
+          <span>Que tal uma pesquisa diferente?</span>
+        </h2>
+      </div>
+    )
+  }
+
   return (
     <section className='w-full h-full block'>
       {articles.map((article, index) => {
