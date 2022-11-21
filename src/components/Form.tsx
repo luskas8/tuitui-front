@@ -30,7 +30,7 @@ export function Form ({ methods, onSubmit, children, className }: FormProps) {
             <form
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onSubmit={methods.handleSubmit(onSubmit)}
-                className={String('tuitui-form w-full flex flex-col justify-center items-start gap-2 p-3 ').concat(String(className))}
+                className={String('tuitui-form w-full flex flex-col justify-center items-start gap-2 p-3 ').concat(String(className ?? ''))}
             >
                 {children}
             </form>

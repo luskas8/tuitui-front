@@ -1,4 +1,5 @@
 import { ReactComponent as FileText } from '@assets/icons/FileText.svg'
+import { ReactComponent as Search } from '@assets/icons/Search.svg'
 import { Article } from '@components/Article'
 import { Button } from '@components/Button'
 import { Form } from '@components/Form'
@@ -49,13 +50,16 @@ interface SearchBarProps {
 }
 
 function SearchBar ({ methods }: SearchBarProps) {
+  function submit (data: any) {
+    console.log('AAAAAAAA')
+  }
+
   return (
     <div className='flex justify-center items-center gap-[10px]'>
       <Form
         className='p-0 row'
         methods={methods}
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={methods.handleSubmit((data) => console.log(data))}
+        onSubmit={submit}
       >
         <Select
           control={methods.control}
@@ -74,12 +78,17 @@ function SearchBar ({ methods }: SearchBarProps) {
           ]}
         />
         <Input
+          control={methods.control}
           name='search-item'
+          caption={false}
           placeholder='Digite sua pesquisa'
           isRequired="Campo obrigatório"
           classNameSize="w-auto"
         />
-        <button type='submit'>submit</button>
+        <Button.Tertiary
+          type='submit'
+          icon={<Search className='w-full h-full' />}
+        />
       </Form>
     </div>
   )

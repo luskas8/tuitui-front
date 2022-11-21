@@ -12,7 +12,7 @@ export function Button ({ title, icon, type = 'button', disabled, onClick, class
           onClick={onClick}
           disabled={disabled}
           type={type}
-          className={String('tuitui-button ').concat(String(className))}
+          className={String('tuitui-button ').concat(String(className ?? ''))}
         >
             {icon && (
                 <div className='w-6 h-6'>{icon}</div>
@@ -29,7 +29,7 @@ Button.Secondary = ({ title, icon, type = 'button', disabled, onClick, className
             onClick={onClick}
             disabled={disabled}
             type={type}
-            className={String('tuitui-button secondary ').concat(String(className))}
+            className={String('tuitui-button secondary ').concat(String(className ?? ''))}
           >
               {icon && (
                 <div className='w-6 h-6'>{icon}</div>
@@ -46,7 +46,7 @@ Button.Tertiary = ({ title, icon, type = 'button', disabled, onClick, className,
             onClick={onClick}
             disabled={disabled}
             type={type}
-            className={String('tuitui-button tertiary ').concat(String(className))}
+            className={String('tuitui-button tertiary ').concat(String(className ?? ''))}
           >
               {icon && (
                 <div className='w-6 h-6'>{icon}</div>
