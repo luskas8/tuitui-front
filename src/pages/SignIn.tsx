@@ -15,12 +15,11 @@ export function SignIn () {
     const { formState: { isValid } } = methods
 
     if (isValid) {
-      navigate('/homepage')
+      navigate('/app/homepage')
     }
   }
 
   function handleSignUpClick () {
-    console.log('AA')
     navigate('/signup')
   }
 
@@ -38,12 +37,14 @@ export function SignIn () {
                     >
                         <Form.Group>
                             <Input
+                                control={methods.control}
                                 name="username"
                                 label='Nome de usuário'
                                 placeholder='Digite seu nome de usuário'
                                 isRequired='Campo obrigatório'
                             />
                             <Input
+                                control={methods.control}
                                 name="password"
                                 type="password"
                                 label='Senha'

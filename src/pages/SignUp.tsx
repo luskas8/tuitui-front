@@ -11,22 +11,10 @@ export function SignUp () {
   const navigate = useNavigate()
 
   function submit (data: any) {
-    const { formState: { isValid }, setError } = methods
+    const { formState: { isValid } } = methods
 
     if (isValid) {
-      if (data.password !== data['check-password']) {
-        setError('password', {
-          type: 'validate',
-          message: 'As senhas devem ser iguais'
-        })
-        setError('check-password', {
-          type: 'validate',
-          message: 'As senhas devem ser iguais'
-        })
-        return
-      }
-
-      navigate('/homepage')
+      navigate('/app/homepage')
     }
   }
 
@@ -48,12 +36,14 @@ export function SignUp () {
                     >
                         <Form.Group>
                             <Input
+                                control={methods.control}
                                 name="fullname"
                                 label='Nome completo'
                                 placeholder='Digite seu nome completo'
                                 isRequired='Campo obrigatório'
                             />
                             <Input
+                                control={methods.control}
                                 name="username"
                                 label='Nome de usuário'
                                 placeholder='Digite seu nome de usuário'
@@ -62,18 +52,26 @@ export function SignUp () {
                                 helper={['O nome de usuário é como será conhecido no Tuitui.', 'Este não poderá ser alterado e será utilizado para ingressar no Tuitui, então escolha bem!']}
                             />
                             <Input
+                                control={methods.control}
                                 name="password"
                                 type="password"
                                 label='Senha'
                                 placeholder='Digite seu senha'
                                 isRequired='Campo obrigatório'
+                                rules={{
+                                  validate: (value: string) => value === methods.getValues()['check-password'] || 'As senhas devem ser iguais'
+                                }}
                             />
                             <Input
+                                control={methods.control}
                                 name="check-password"
                                 type="password"
                                 label='Senha'
                                 placeholder='Confirme sua nova senha'
                                 isRequired='Campo obrigatório'
+                                rules={{
+                                  validate: (value: string) => value === methods.getValues().password || 'As senhas devem ser iguais'
+                                }}
                             />
                         </Form.Group>
                         <div className='w-full flex flex-col gap-2 pt-8'>
