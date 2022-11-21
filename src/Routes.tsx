@@ -6,6 +6,7 @@ import { SignUp } from '@pages/SignUp'
 import { Authentication } from '@pages/Authentication'
 import { Profile } from '@pages/Profile'
 import { Article } from '@pages/Article'
+import AppLoader from '@pages/AppLoader'
 
 export const routes = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ export const routes = createBrowserRouter([
     path: '/app',
     element: <Authentication />,
     children: [
+      {
+        path: '',
+        element: <></>,
+        loader: AppLoader
+      },
       {
         path: 'homepage',
         element: <Homepage />

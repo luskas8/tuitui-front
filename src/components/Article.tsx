@@ -4,9 +4,38 @@ import { ReactComponent as Sad } from '@assets/icons/Sad.svg'
 import { Button } from './Button'
 import { Article as ArticleType } from '@types'
 
-export function Article () {
+export function Article ({ author, content, tags, title }: ArticleType) {
   return (
-    <h1>ARTICLE COMPONENT</h1>
+    <article className='tuitui-article--preview w-full h-fit rounded-lg bg-white py-[5px] px-2 overflow-hidden'>
+      <header className='flex justify-between items-center'>
+        <h1 className='first-letter:capitalize font-medium text-base text-black'>{title}</h1>
+        <Button
+        className='small info'
+          title='Ler mais'
+          icon={<Search className='w-full h-full' />}
+        />
+      </header>
+      {!!tags.length && (
+        <section data-name='tags' className='w-full h-fit py-[10px] flex gap-[5px] flex-wrap'>
+          {tags.map((tag, index) => {
+            return (
+              <div key={`article-tag-${index}`} className='w-fit px-[6px] py-2 bg-blue rounded-[4px] text-white font-medium first-letter:uppercase'>
+                {tag}
+              </div>
+            )
+          })}
+        </section>
+      )}
+      <main className='flex flex-col gap-[10px] h-full text-ellipsis overflow-hidden'>
+        <section className='w-full flex gap-[10px] items-center'>
+          <span className='font-normal text-sm'>{author}</span>
+          <time className='font-normal text-xs text-slate-400'>14:10</time>
+        </section>
+        <main className='w-full h-full font-medium text-sm text-justify text-black'>
+          {content}
+        </main>
+      </main>
+    </article>
   )
 }
 
