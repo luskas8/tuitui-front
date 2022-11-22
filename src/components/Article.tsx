@@ -1,19 +1,43 @@
 import React from 'react'
+import { ReactComponent as ArrowLeft } from '@assets/icons/ArrowLeft.svg'
 import { ReactComponent as Search } from '@assets/icons/Search.svg'
+import { ReactComponent as Edit } from '@assets/icons/Edit.svg'
+import { ReactComponent as DeleteOutlined } from '@assets/icons/DeleteOutlined.svg'
 import { ReactComponent as Sad } from '@assets/icons/Sad.svg'
 import { Button } from './Button'
 import { Article as ArticleType } from '@types'
+import { useNavigate } from 'react-router-dom'
 
 export function Article ({ author, content, tags, title }: ArticleType) {
+  const navigate = useNavigate()
+
+  function handleBackClick () {
+    navigate(-1)
+  }
+
   return (
     <article className='tuitui-article--preview w-full h-fit rounded-lg bg-white py-[5px] px-2 overflow-hidden'>
       <header className='flex justify-between items-center'>
-        <h1 className='first-letter:capitalize font-medium text-base text-black'>{title}</h1>
-        <Button
-        className='small info'
-          title='Ler mais'
-          icon={<Search className='w-full h-full' />}
-        />
+        <div className='flex items-center gap-[10px]'>
+          <Button.Tertiary
+            onClick={handleBackClick}
+            className='small'
+            icon={<ArrowLeft className='w-full h-full' />}
+          />
+          <h1 className='first-letter:capitalize font-medium text-base text-black'>{title}</h1>
+        </div>
+        <div className='flex gap-[5px]'>
+          <Button
+          className='small'
+            title='Editar'
+            icon={<Edit className='w-full h-full' />}
+          />
+          <Button.Secondary
+          className='small danger'
+            title='Excluir'
+            icon={<DeleteOutlined className='w-full h-full' />}
+          />
+        </div>
       </header>
       {!!tags.length && (
         <section data-name='tags' className='w-full h-fit py-[10px] flex gap-[5px] flex-wrap'>
