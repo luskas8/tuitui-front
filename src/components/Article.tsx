@@ -7,12 +7,24 @@ import { ReactComponent as Sad } from '@assets/icons/Sad.svg'
 import { Button } from './Button'
 import { Article as ArticleType } from '@types'
 import { useNavigate } from 'react-router-dom'
+import { useModal } from '@hooks/useModal'
 
 export function Article ({ author, content, tags, title }: ArticleType) {
   const navigate = useNavigate()
+  const { setValuesNShow } = useModal()
 
   function handleBackClick () {
     navigate(-1)
+  }
+
+  function handleDeleteArticle () {
+    setValuesNShow({
+      onFadeClick: 'close',
+      header: {
+        title: 'Confirmação de ação'
+      },
+      content: 'Você deseja mesmo excluir essa publicação?'
+    })
   }
 
   return (
@@ -36,6 +48,7 @@ export function Article ({ author, content, tags, title }: ArticleType) {
           className='small danger'
             title='Excluir'
             icon={<DeleteOutlined className='w-full h-full' />}
+            onClick={handleDeleteArticle}
           />
         </div>
       </header>

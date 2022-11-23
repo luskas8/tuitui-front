@@ -47,6 +47,9 @@
       ],
       "@layout": [
         "src/layout"
+      ],
+      "@utils/*": [
+        "src/utils/*"
       ]
     }
   },

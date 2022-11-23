@@ -6,7 +6,7 @@ import { SignUp } from '@pages/SignUp'
 import { Authentication } from '@pages/Authentication'
 import { Profile } from '@pages/Profile'
 import { Article } from '@pages/Article'
-import AppLoader from '@pages/AppLoader'
+import loader from '@utils/loader'
 
 export const routes = createBrowserRouter([
   {
@@ -24,7 +24,9 @@ export const routes = createBrowserRouter([
       {
         path: '',
         element: <></>,
-        loader: AppLoader
+        loader: () => {
+          return loader('/app/homepage')
+        }
       },
       {
         path: 'homepage',
