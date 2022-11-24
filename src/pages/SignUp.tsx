@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
-import { Form } from '@components/Form'
+import { Form, FormGroup } from '@components/Form'
 import Input from '@components/Input'
 
 export function SignUp () {
@@ -34,7 +34,7 @@ export function SignUp () {
                         onSubmit={submit}
                         methods={methods}
                     >
-                        <Form.Group>
+                        <FormGroup>
                             <Input
                                 control={methods.control}
                                 name="fullname"
@@ -73,7 +73,7 @@ export function SignUp () {
                                   validate: (value: string) => value === methods.getValues().password || 'As senhas devem ser iguais'
                                 }}
                             />
-                        </Form.Group>
+                        </FormGroup>
                         <div className='w-full flex flex-col gap-2 pt-8'>
                             <Button
                                 title='Criar conta'

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
-import { Form } from '@components/Form'
+import { Form, FormGroup } from '@components/Form'
 import Input from '@components/Input'
 
 export function SignIn () {
@@ -35,7 +35,7 @@ export function SignIn () {
                         onSubmit={submit}
                         methods={methods}
                     >
-                        <Form.Group>
+                        <FormGroup>
                             <Input
                                 control={methods.control}
                                 name="username"
@@ -51,7 +51,7 @@ export function SignIn () {
                                 placeholder='Digite seu senha'
                                 isRequired='Campo obrigatório'
                             />
-                        </Form.Group>
+                        </FormGroup>
                         <Link className='text-sm text-dark-purple font-normal text-center hover:text-purple'
                             to="/"
                         >

@@ -7,6 +7,7 @@ import { Authentication } from '@pages/Authentication'
 import { Profile } from '@pages/Profile'
 import { Article } from '@pages/Article'
 import loader from '@utils/loader'
+import { CreateArticle } from '@pages/CreateArticle'
 
 export const routes = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const routes = createBrowserRouter([
       { // rota para visualizar o artigo
         path: 'view/:userId/:articleId',
         element: <Article />
+      },
+      { // rota para criar artigo
+        path: 'create/:userId',
+        element: <CreateArticle />
       }
     ]
   }
