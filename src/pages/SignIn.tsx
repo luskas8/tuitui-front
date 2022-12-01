@@ -4,19 +4,23 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
-import { Form } from '@components/Form'
+import { Form, FormGroup } from '@components/Form'
 import Input from '@components/Input'
 
 export function SignIn () {
   const methods = useForm()
   const navigate = useNavigate()
 
-  function submit (data: any) {
-    const { formState: { isValid } } = methods
+  function submit (e: any) {
+    e.preventDefault()
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    methods.handleSubmit((data: any) => {
+      const { formState: { isValid } } = methods
 
-    if (isValid) {
-      navigate('/app/homepage')
-    }
+      if (isValid) {
+        navigate('/app/homepage')
+      }
+    })()
   }
 
   function handleSignUpClick () {
@@ -32,10 +36,9 @@ export function SignIn () {
                 </h1>
                 <div className='w-full max-w-[340px] flex items-center'>
                     <Form
-                        onSubmit={submit}
                         methods={methods}
                     >
-                        <Form.Group>
+                        <FormGroup>
                             <Input
                                 control={methods.control}
                                 name="username"
@@ -51,7 +54,7 @@ export function SignIn () {
                                 placeholder='Digite seu senha'
                                 isRequired='Campo obrigatório'
                             />
-                        </Form.Group>
+                        </FormGroup>
                         <Link className='text-sm text-dark-purple font-normal text-center hover:text-purple'
                             to="/"
                         >
@@ -61,6 +64,7 @@ export function SignIn () {
                             <Button
                                 title='Entrar'
                                 type='submit'
+                                onClick={submit}
                             />
                             <Button.Secondary
                                 title='Criar nova conta'

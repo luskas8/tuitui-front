@@ -1,15 +1,15 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { forwardRef, LegacyRef, MutableRefObject, ReactNode, useEffect } from 'react'
 import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form'
 import { useAlert } from '@hooks/useAlert'
 
 interface FormProps {
   methods: UseFormReturn<FieldValues, any>
-  onSubmit: (data: any) => void
   children: ReactNode
   className?: string
+  ref?: MutableRefObject<any>
 }
 
-export function Form ({ methods, onSubmit, children, className }: FormProps) {
+export const Form = forwardRef(({ methods, children, className }: FormProps, formRef) => {
   const { formState: { errors } } = methods
   const { setMessage, setVisibility } = useAlert()
   const error = Object.keys(errors).shift()
@@ -17,10 +17,10 @@ export function Form ({ methods, onSubmit, children, className }: FormProps) {
   useEffect(() => {
     if (error) {
       setMessage(String(errors[error]?.message))
-      setVisibility('VISIBLE')
+      setVisibility('visible')
       return
     }
-    setVisibility('HIDDEN')
+    setVisibility('hidden')
   }, [error])
 
   return (
@@ -28,22 +28,21 @@ export function Form ({ methods, onSubmit, children, className }: FormProps) {
             {...methods}
         >
             <form
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onSubmit={methods.handleSubmit(onSubmit)}
+                ref={formRef as LegacyRef<HTMLFormElement> | undefined}
                 className={String('tuitui-form w-full flex flex-col justify-center items-start gap-2 p-3 ').concat(String(className ?? ''))}
             >
                 {children}
             </form>
         </FormProvider>
   )
-}
+})
 
 interface FormGroupProps {
   title?: string
   children: ReactNode
 }
 
-Form.Group = ({ title, children }: FormGroupProps) => {
+export function FormGroup ({ title, children }: FormGroupProps) {
   return (
         <div className='w-full flex flex-col gap-2 items-start'>
             {title && <h2 className=''></h2>}
@@ -56,7 +55,7 @@ Form.Group = ({ title, children }: FormGroupProps) => {
 //   children: ReactNode
 // }
 
-// Form.GroupItem = ({ children }: FormGroupItemProps) => {
+// FormGroupItem = ({ children }: FormGroupItemProps) => {
 //   return (
 //         <div className=''>
 //             {children}

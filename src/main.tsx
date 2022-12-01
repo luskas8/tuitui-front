@@ -1,4 +1,5 @@
 import { AlertProvider } from '@contexts/Alert'
+import { ModalProvider } from '@contexts/Modal'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
@@ -10,7 +11,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
         <AuthProvider>
             <AlertProvider>
+              <ModalProvider>
                 <RouterProvider router={routes}/>
+              </ModalProvider>
             </AlertProvider>
         </AuthProvider>
   </React.StrictMode>

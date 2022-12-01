@@ -1,10 +1,9 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
-
-type State = 'VISIBLE' | 'HIDDEN'
+import { VisibilityState } from '@types'
 
 interface AlertContextProps {
-  setVisibility: (state: State) => void
+  setVisibility: (state: VisibilityState) => void
   setMessage: (message: string) => void
 }
 
@@ -18,8 +17,8 @@ export function AlertProvider ({ children }: AlertProviderProps) {
   const [visibility, updateVisibility] = useState<boolean>(false)
   const [message, updateMessage] = useState<string>('')
 
-  function setVisibility (state: State) {
-    updateVisibility(state === 'VISIBLE')
+  function setVisibility (state: VisibilityState) {
+    updateVisibility(state === 'visible')
   }
   function setMessage (message: string) {
     updateMessage(message)
@@ -39,7 +38,7 @@ export function AlertProvider ({ children }: AlertProviderProps) {
               setMessage
             }}
         >
-          <div className='relative w-full h-full'>
+          <div className='alert relative w-full h-full'>
             {visibility && (
                   <div className='absolute top-5 left-3 drop-shadow-md rounded-sm w-64 bg-red-600 text-white'>
                     <div className='flex justify-start gap-6 items-start px-4 py-2'>
