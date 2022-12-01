@@ -5,19 +5,32 @@ import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
 import { Form, FormGroup } from '@components/Form'
 import Input from '@components/Input'
+import { useAuth } from '@hooks/useAuth'
+
+interface FormValues {
+  email: string
+  username: string
+  password: string
+}
 
 export function SignUp () {
-  const methods = useForm()
+  const { signup } = useAuth()
+  const methods = useForm<FormValues | any>()
   const navigate = useNavigate()
 
   function submit (e: any) {
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    methods.handleSubmit((data: any) => {
-      const { formState: { isValid } } = methods
-
-      if (isValid) {
-        navigate('/app/homepage')
+    methods.handleSubmit(async (data: FormValues) => {
+      if (data.email && data.password && data.username) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        signup(data.email, data.password, data.username).then(error => {
+          if (error) {
+            methods.setError('validate', { message: error })
+          } else {
+            navigate('/app/homepage')
+          }
+        })
       }
     })()
   }
@@ -40,9 +53,9 @@ export function SignUp () {
                         <FormGroup>
                             <Input
                                 control={methods.control}
-                                name="fullname"
-                                label='Nome completo'
-                                placeholder='Digite seu nome completo'
+                                name="email"
+                                label='Email'
+                                placeholder='Digite seu email'
                                 isRequired='Campo obrigatório'
                             />
                             <Input

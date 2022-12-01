@@ -6,21 +6,49 @@ import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
 import { Form, FormGroup } from '@components/Form'
 import Input from '@components/Input'
+import { useAuth } from '@hooks/useAuth'
+
+interface FormValues {
+  email: string
+  password: string
+}
 
 export function SignIn () {
-  const methods = useForm()
+  const methods = useForm<FormValues | any>()
   const navigate = useNavigate()
+  const { authenticate } = useAuth()
 
   function submit (e: any) {
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    methods.handleSubmit((data: any) => {
-      const { formState: { isValid } } = methods
-
-      if (isValid) {
-        navigate('/app/homepage')
+    methods.handleSubmit((data: FormValues) => {
+      if (data.email && data.password) {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        authenticate(data.email, data.password).then((error) => {
+          if (error) {
+            methods.setError('validate', { message: error })
+          } else {
+            navigate('/app/homepage')
+          }
+        })
       }
-    })()
+    },
+    () => {
+      methods.clearErrors()
+      methods.handleSubmit((data: FormValues) => {
+        if (data.email && data.password) {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          authenticate(data.email, data.password).then((error) => {
+            if (error) {
+              methods.setError('validate', { message: error })
+            } else {
+              navigate('/app/homepage')
+            }
+          }).catch()
+        }
+      })
+    }
+    )()
   }
 
   function handleSignUpClick () {
@@ -41,7 +69,7 @@ export function SignIn () {
                         <FormGroup>
                             <Input
                                 control={methods.control}
-                                name="username"
+                                name="email"
                                 label='Nome de usuário'
                                 placeholder='Digite seu nome de usuário'
                                 isRequired='Campo obrigatório'

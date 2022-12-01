@@ -6,9 +6,9 @@ import { Outlet } from 'react-router-dom'
 export function Authentication () {
   const { email } = useAuth()
 
-  // if (!email) {
-  //   return <h1>Not logged!</h1>
-  // }
+  if (!email) {
+    return <h1>Not logged!</h1>
+  }
   return (
     <NavigationProvider>
       <Outlet />
