@@ -11,12 +11,16 @@ export function SignIn () {
   const methods = useForm()
   const navigate = useNavigate()
 
-  function submit (data: any) {
-    const { formState: { isValid } } = methods
+  function submit (e: any) {
+    e.preventDefault()
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    methods.handleSubmit((data: any) => {
+      const { formState: { isValid } } = methods
 
-    if (isValid) {
-      navigate('/app/homepage')
-    }
+      if (isValid) {
+        navigate('/app/homepage')
+      }
+    })()
   }
 
   function handleSignUpClick () {
@@ -32,7 +36,6 @@ export function SignIn () {
                 </h1>
                 <div className='w-full max-w-[340px] flex items-center'>
                     <Form
-                        onSubmit={submit}
                         methods={methods}
                     >
                         <FormGroup>
@@ -61,6 +64,7 @@ export function SignIn () {
                             <Button
                                 title='Entrar'
                                 type='submit'
+                                onClick={submit}
                             />
                             <Button.Secondary
                                 title='Criar nova conta'

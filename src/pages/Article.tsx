@@ -4,17 +4,23 @@ import { ReactComponent as FileText } from '@assets/icons/FileText.svg'
 import Layout from '@layout'
 import { useNavigation } from '@hooks/useNavigation'
 import { Button } from '@components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export function Article () {
-  const { setActions } = useNavigation()
+  const navigate = useNavigate()
+  const { setActions, setMainArea } = useNavigation()
 
   useEffect(() => {
+    setMainArea([])
     setActions([
       <Button
         key="new-article-button"
         className='small w-36'
         title='Novo artigo'
         icon={<FileText className='w-full h-full' />}
+        onClick={() => {
+          navigate('/app/create/:userId')
+        }}
       />
     ])
   }, [])

@@ -15,7 +15,7 @@ export function Navigation () {
         </div>
         <div data-name='action-area' className='flex items-center w-full h-full'>
           <div className='self-center w-full h-full'>{mainArea}</div>
-          <div className='self-center w-auto h-full px-1 flex justify-center items-center'>{actionsArea}</div>
+          <div className='self-center w-auto h-full px-1 flex gap-2 justify-center items-center'>{actionsArea}</div>
         </div>
         <div data-name='user-area' className='w-36 max-h-12'>
           <Button.Tertiary

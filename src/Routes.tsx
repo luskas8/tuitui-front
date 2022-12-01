@@ -41,6 +41,10 @@ export const routes = createBrowserRouter([
         path: 'view/:userId/:articleId',
         element: <Article />
       },
+      { // rota para editar o artigo
+        path: 'edit/:userId/:articleId',
+        element: <Article />
+      },
       { // rota para criar artigo
         path: 'create/:userId',
         element: <CreateArticle />

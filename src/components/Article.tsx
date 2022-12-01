@@ -23,8 +23,22 @@ export function Article ({ author, content, tags, title }: ArticleType) {
       header: {
         title: 'Confirmação de ação'
       },
-      content: 'Você deseja mesmo excluir essa publicação?'
+      content: 'Você deseja mesmo excluir essa publicação?',
+      footer: {
+        buttons: [
+          <Button
+            key="delete-button-confirm"
+            className='small danger'
+            title='Confirmar'
+            onClick={() => {}}
+          />
+        ]
+      }
     })
+  }
+
+  function handleEditArticle () {
+    navigate('/app/create/:userId')
   }
 
   return (
@@ -40,12 +54,13 @@ export function Article ({ author, content, tags, title }: ArticleType) {
         </div>
         <div className='flex gap-[5px]'>
           <Button
-          className='small'
+            className='small'
             title='Editar'
             icon={<Edit className='w-full h-full' />}
+            onClick={handleEditArticle}
           />
           <Button.Secondary
-          className='small danger'
+            className='small danger'
             title='Excluir'
             icon={<DeleteOutlined className='w-full h-full' />}
             onClick={handleDeleteArticle}
@@ -108,6 +123,12 @@ Article.Container = ({ articles }: ArticleContainerProps) => {
 }
 
 Article.Preview = ({ author, content, title }: ArticleType) => {
+  const navigate = useNavigate()
+
+  function handleReadMore () {
+    navigate('/app/view/:userId/:articleId')
+  }
+
   return (
     <article className='tuitui-article--preview w-full h-40 rounded-lg bg-white py-[5px] px-2 overflow-hidden'>
       <header className='flex justify-between items-center'>
@@ -116,6 +137,7 @@ Article.Preview = ({ author, content, title }: ArticleType) => {
         className='small info'
           title='Ler mais'
           icon={<Search className='w-full h-full' />}
+          onClick={handleReadMore}
         />
       </header>
       <main className='flex flex-col gap-[10px] h-full text-ellipsis overflow-hidden'>

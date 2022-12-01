@@ -1,25 +1,18 @@
-import React, { FormEvent, forwardRef, LegacyRef, MutableRefObject, ReactNode, useEffect } from 'react'
+import React, { forwardRef, LegacyRef, MutableRefObject, ReactNode, useEffect } from 'react'
 import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form'
 import { useAlert } from '@hooks/useAlert'
 
 interface FormProps {
   methods: UseFormReturn<FieldValues, any>
-  onSubmit: (data: any) => void
   children: ReactNode
   className?: string
   ref?: MutableRefObject<any>
 }
 
-export const Form = forwardRef(({ methods, onSubmit, children, className }: FormProps, formRef) => {
+export const Form = forwardRef(({ methods, children, className }: FormProps, formRef) => {
   const { formState: { errors } } = methods
   const { setMessage, setVisibility } = useAlert()
   const error = Object.keys(errors).shift()
-
-  function handleSubmit (e: FormEvent<HTMLFormElement>) {
-    console.log('aaa')
-    // e.preventDefault()
-    // methods.handleSubmit(onSubmit)
-  }
 
   useEffect(() => {
     if (error) {
@@ -36,8 +29,6 @@ export const Form = forwardRef(({ methods, onSubmit, children, className }: Form
         >
             <form
                 ref={formRef as LegacyRef<HTMLFormElement> | undefined}
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onSubmit={handleSubmit}
                 className={String('tuitui-form w-full flex flex-col justify-center items-start gap-2 p-3 ').concat(String(className ?? ''))}
             >
                 {children}
