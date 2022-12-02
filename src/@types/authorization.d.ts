@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 export interface UserProps {
   email?: string
   token?: string
+  id?: string
 }
 
 export interface AuthContextProps extends UserProps {

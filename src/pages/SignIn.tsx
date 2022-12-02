@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
@@ -14,15 +14,27 @@ interface FormValues {
 }
 
 export function SignIn () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, setSearchParems] = useSearchParams()
+  const unauthorizedCode = searchParams.get('code') ?? null
+
+  const { token, authenticate } = useAuth()
+  const navigate = useNavigate()
+
+  // TODO esperar rota de validação de token e esperar validar o token caso tenha, se não seguir
+
+  if (token) {
+    navigate('/app/homepage')
+    return
+  }
+
   const methods = useForm<FormValues | any>({
     defaultValues: {
       email: '',
       password: ''
     }
   })
-  const { formState: { isValid, isValidating, isSubmitting } } = methods
-  const navigate = useNavigate()
-  const { authenticate } = useAuth()
+  const { formState: { isValid, isValidating, isSubmitting }, setError } = methods
 
   function submit (e: any) {
     e.preventDefault()
@@ -30,7 +42,6 @@ export function SignIn () {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods.handleSubmit((data: FormValues) => {
       if (isValid) {
-        console.log(data)
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         authenticate(data.email, data.password).then((error) => {
           if (error) {
@@ -62,6 +73,12 @@ export function SignIn () {
   function handleSignUpClick () {
     navigate('/signup')
   }
+
+  useEffect(() => {
+    if (unauthorizedCode) {
+      setError('unauthorized', { message: 'Sua sessão expirou, por favor logue novamente.' })
+    }
+  }, [])
 
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>

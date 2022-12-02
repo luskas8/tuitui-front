@@ -14,7 +14,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
       return response.error.message
     }
 
-    const payload = { token: response.token, email: response.user.userEmail }
+    const payload = { token: response.token, email: response.user.userEmail, id: response.user._id }
 
     setUser(payload)
     setUserLocalStorage(payload)
@@ -34,8 +34,6 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     }
 
     const payload = { token: response.token, email: response.user.userEmail }
-
-    console.log(payload)
 
     setUser(payload)
     setUserLocalStorage(payload)

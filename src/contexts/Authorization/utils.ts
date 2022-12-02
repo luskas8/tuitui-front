@@ -5,9 +5,14 @@ export async function LoginRequest (email: string, password: string) {
   try {
     const request = await Api.post('/users/signin', { userEmail: email, password })
 
+    if (request.status !== 200) {
+      return { error: request.data }
+    }
+
     return request.data
   } catch (error: any) {
-    return { error: error.response.data }
+    console.log({ error })
+    return { error: error.data }
   }
 }
 

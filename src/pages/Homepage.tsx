@@ -5,16 +5,30 @@ import { Button } from '@components/Button'
 import { Form } from '@components/Form'
 import Input from '@components/Input'
 import { Select } from '@components/Select'
+import { useAuth } from '@hooks/useAuth'
 import { useNavigation } from '@hooks/useNavigation'
 import Layout from '@layout'
-import React, { useEffect } from 'react'
+import { Article as ArticleType } from '@types'
+import { getAllArticles } from '@utils/getAllArticles'
+import React, { useEffect, useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+interface FormValues {
+  'search-type': string
+  'search-item': string
+}
+
 export function Homepage () {
   const navigate = useNavigate()
+  const [articles, setArticles] = useState<ArticleType[]>([])
   const { setActions, setMainArea } = useNavigation()
-  const methods = useForm()
+  const methods = useForm<FormValues | any>({
+    defaultValues: {
+      'search-type': '',
+      'search-item': ''
+    }
+  })
 
   useEffect(() => {
     setActions([
@@ -28,20 +42,13 @@ export function Homepage () {
         }}
       />
     ])
-    setMainArea([<SearchBar key="search-bar" methods={methods} />])
+    setMainArea([<SearchBar key="search-bar" methods={methods} updateArticle={setArticles} />])
   }, [])
 
   return (
     <Layout>
       <Article.Container
-        articles={[
-          {
-            author: 'luskas8',
-            content: 'Nunc dignissim convallis ipsum sed rhoncus. Proin convallis hendrerit euismod. Nam orci leo, lobortis in velit vitae, faucibus ultricies augue. Cras sollicitudin magna in ligula elementum imperdiet. Sed et nunc non lorem laoreet gravida. Ut tempus mollis ante, vitae sollicitudin turpis. Vivamus molestie, arcu id pretium vestibulum, justo turpis dignissim est, quis aliquam elit sem at nisi. Sed sed dui aliquam tortor suscipit blandit. Pellentesque vel molestie arcu. Ut in dolor tristique, luctus urna eu, sodales turpis. Cras ut diam pretium mi ultrices pretium. Phasellus imperdiet lacus ut mauris hendrerit lacinia. Aliquam sed semper augue. Mauris a est aliquet, placerat ipsum non, volutpat quam. Vestibulum ac est in urna vulputate varius porta eu risus. Aliquam id porta nibh.',
-            title: 'título do artigo',
-            tags: ['']
-          }
-        ]}
+        articles={articles}
       />
     </Layout>
   )
@@ -49,14 +56,17 @@ export function Homepage () {
 
 interface SearchBarProps {
   methods: UseFormReturn<FieldValues, any>
+  updateArticle: any
 }
 
-function SearchBar ({ methods }: SearchBarProps) {
+function SearchBar ({ methods, updateArticle }: SearchBarProps) {
+  const { token } = useAuth()
   function submit (e: any) {
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    methods.handleSubmit((data: any) => {
-      console.log(data)
+    methods.handleSubmit(async (data) => {
+      const articles = await getAllArticles(data, token)
+      updateArticle(articles.data)
     })()
   }
 

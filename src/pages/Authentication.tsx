@@ -4,9 +4,9 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 export function Authentication () {
-  const { email } = useAuth()
+  const { token } = useAuth()
 
-  if (!email) {
+  if (!token) {
     return <h1>Not logged!</h1>
   }
   return (

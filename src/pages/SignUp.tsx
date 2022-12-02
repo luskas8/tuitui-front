@@ -14,7 +14,14 @@ interface FormValues {
 }
 
 export function SignUp () {
-  const { signup } = useAuth()
+  const { token, signup } = useAuth()
+  const navigate = useNavigate()
+
+  if (token) {
+    navigate('/app/homepage')
+    return
+  }
+
   const methods = useForm<FormValues | any>({
     defaultValues: {
       email: '',
@@ -23,7 +30,6 @@ export function SignUp () {
     }
   })
   const { formState: { isValid, isValidating, isSubmitting } } = methods
-  const navigate = useNavigate()
 
   function submit (e: any) {
     e.preventDefault()
