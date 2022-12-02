@@ -14,19 +14,27 @@ interface FormValues {
 }
 
 export function SignIn () {
-  const methods = useForm<FormValues | any>()
+  const methods = useForm<FormValues | any>({
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
+  const { formState: { isValid, isValidating, isSubmitting } } = methods
   const navigate = useNavigate()
   const { authenticate } = useAuth()
 
   function submit (e: any) {
     e.preventDefault()
+    methods.clearErrors()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods.handleSubmit((data: FormValues) => {
-      if (data.email && data.password) {
+      if (isValid) {
+        console.log(data)
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         authenticate(data.email, data.password).then((error) => {
           if (error) {
-            methods.setError('validate', { message: error })
+            methods.setError('signin', { message: 'Usuário ou senha incorretos, tente novamente.' })
           } else {
             navigate('/app/homepage')
           }
@@ -57,9 +65,9 @@ export function SignIn () {
 
   return (
         <div className='w-full h-screen flex md:flex-row flex-col'>
-            <div className='md:w-1/2 w-full h-screen flex gap-8 justify-center items-center md:flex-col bg-white'>
+            <div className='md:w-1/2 w-full h-screen flex gap-8 justify-center items-center flex-col bg-white'>
                 <Branding />
-                <h1 className='font-medium text-6xl text-light-black decoration-inherit'>
+                <h1 className='font-medium lsg:text-6xl md:text-4xl text-3xl text-light-black decoration-inherit'>
                     conectando ideias
                 </h1>
                 <div className='w-full max-w-[340px] flex items-center'>
@@ -70,8 +78,8 @@ export function SignIn () {
                             <Input
                                 control={methods.control}
                                 name="email"
-                                label='Nome de usuário'
-                                placeholder='Digite seu nome de usuário'
+                                label='Email'
+                                placeholder='Digite seu email'
                                 isRequired='Campo obrigatório'
                             />
                             <Input
@@ -93,6 +101,7 @@ export function SignIn () {
                                 title='Entrar'
                                 type='submit'
                                 onClick={submit}
+                                disabled={!isValid || isValidating || isSubmitting}
                             />
                             <Button.Secondary
                                 title='Criar nova conta'
@@ -102,7 +111,7 @@ export function SignIn () {
                     </Form>
                 </div>
             </div>
-            <div className='md:w-1/2 w-full flex flex-row md:flex-col justify-center items-center bg-purple p-14'>
+            <div className='md:w-1/2 w-full md:flex hidden flex-col justify-center items-center bg-purple p-14'>
                 <div className='max-w-[608px] w-full h-full'>
                     <Tuitui width="100%" height="100%" />
                 </div>

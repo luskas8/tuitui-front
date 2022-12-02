@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react'
-import { Control, Controller, FieldError } from 'react-hook-form'
+import { Control, Controller, FieldError, useFormContext } from 'react-hook-form'
 import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
 import ReactTolltip from 'react-tooltip'
 import { Rules } from '@types'
@@ -18,6 +18,7 @@ interface InputItemProps extends InputHTMLAttributes<HTMLInputElement> {
   helper?: string[]
   classNameSize?: string
   rules?: Rules
+  defaultValues?: any
 }
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -45,7 +46,8 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
       }}
       render={({
         field: { ref, onChange, value, onBlur },
-        fieldState: { error }
+        fieldState: { error },
+        formState: { defaultValues }
       }) => {
         return <Input.Item
           name={name}
@@ -53,6 +55,8 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
           error={error}
           onBlur={onBlur}
           onChange={onChange}
+          isRequired={isRequired}
+          defaultValues={defaultValues}
           {...rest}
         />
       }}
@@ -60,7 +64,9 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
   )
 }
 
-Input.Item = ({ value, error, caption = true, type, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange }: InputItemProps) => {
+Input.Item = ({ value, error, caption = true, type, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange, defaultValues }: InputItemProps) => {
+  const { setError } = useFormContext()
+
   function handleChance (event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
     onChange({
@@ -70,6 +76,12 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
         value
       }
     })
+  }
+
+  function handleBlur (e: any) {
+    if (isRequired && e.target.value === '') {
+      setError(name, { message: 'Campo obrigatório', type: 'required' })
+    }
   }
 
   return (
@@ -98,6 +110,7 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
                         disabled={loading}
                         value={value ?? ''}
                         onChange={handleChance}
+                        onBlur={handleBlur}
                     />
                 </div>
                 {caption && error && (
@@ -129,6 +142,7 @@ Input.Text = ({ isRequired, control, name, rules, ...rest }: InputProps) => {
           name={name}
           value={value}
           error={error}
+          isRequired={isRequired}
           onBlur={onBlur}
           onChange={onChange}
           {...rest}
@@ -140,6 +154,13 @@ Input.Text = ({ isRequired, control, name, rules, ...rest }: InputProps) => {
 
 Input.TextItem = ({ value, error, caption = true, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange, captionText }: InputItemProps) => {
   const [maxLength, updateMaxLenght] = useState(false)
+  const { setError } = useFormContext()
+
+  function handleBlur (e: any) {
+    if (isRequired && e.target.value === '') {
+      setError(name, { message: 'Campo obrigatório', type: 'required' })
+    }
+  }
 
   function handleChance (event: ChangeEvent<HTMLTextAreaElement>) {
     const { value } = event.target
@@ -185,6 +206,7 @@ Input.TextItem = ({ value, error, caption = true, icon = false, helper, label, l
                       disabled={loading}
                       value={value ?? ''}
                       onChange={handleChance}
+                      onBlur={handleBlur}
                     />
                     {maxLength && (
                       <div className='w-4 h-4 flex justify-center items-center'>
