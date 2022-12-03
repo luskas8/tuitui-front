@@ -19,7 +19,7 @@ export function SignUp () {
 
   if (token) {
     navigate('/app/homepage')
-    return
+    return null
   }
 
   const methods = useForm<FormValues | any>({

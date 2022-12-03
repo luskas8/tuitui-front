@@ -1,14 +1,22 @@
 import { NavigationProvider } from '@contexts/Navigation'
 import { useAuth } from '@hooks/useAuth'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 export function Authentication () {
   const { token } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/?code=401')
+    }
+  }, [])
 
   if (!token) {
-    return <h1>Not logged!</h1>
+    return null
   }
+
   return (
     <NavigationProvider>
       <Outlet />

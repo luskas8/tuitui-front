@@ -89,3 +89,37 @@
 .tuitui-form.row {
   @apply flex-row items-center
 }
+
+.tuitui-select-container {
+  @apply w-full cursor-pointer text-black
+}
+
+.tuitui-select__control {
+  min-height: 0px !important;
+  @apply h-full cursor-pointer text-black
+}
+
+.tuitui-select__indicators {
+  @apply hidden cursor-pointer text-black
+}
+
+.tuitui-select__menu {
+  @apply cursor-pointer z-50 absolute mt-8 rounded-lg w-full bg-white flex flex-col p-4 drop-shadow-lg
+}
+
+.react-select__menu-list {
+  cursor: pointer !important;
+  @apply cursor-pointer text-black
+}
+
+.tuitui-select__option {
+  @apply cursor-pointer hover:bg-slate-300 pt-3 px-3 pb-[9px]
+}
+
+.tuitui-select__option--is-focused {
+  @apply bg-slate-300 !important
+}
+
+.tuitui-select__option--is-selected {
+  @apply bg-slate-400
+}

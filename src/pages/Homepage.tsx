@@ -3,8 +3,7 @@ import { ReactComponent as Search } from '@assets/icons/Search.svg'
 import { Article } from '@components/Article'
 import { Button } from '@components/Button'
 import { Form } from '@components/Form'
-import Input from '@components/Input'
-import { Select } from '@components/Select'
+import { Select, SelectText } from '@components/Select'
 import { useAuth } from '@hooks/useAuth'
 import { useNavigation } from '@hooks/useNavigation'
 import Layout from '@layout'
@@ -65,6 +64,7 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     methods.handleSubmit(async (data) => {
+      console.log(data)
       const articles = await getAllArticles(data, token)
       updateArticle(articles.data)
     })()
@@ -88,18 +88,25 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
             },
             {
               label: 'Tag',
-              value: 'tag'
+              value: 'tags'
             }
           ]}
         />
-        <Input
+        <SelectText
+          control={methods.control}
+          name="search-item"
+          placeholder='Digite sua pesquisa'
+          loading
+          items={[]}
+        />
+        {/* <Input
           control={methods.control}
           name='search-item'
           caption={false}
           placeholder='Digite sua pesquisa'
           isRequired="Campo obrigatório"
           classNameSize="w-auto"
-        />
+        /> */}
         <Button.Tertiary
           type='submit'
           icon={<Search className='w-full h-full' />}

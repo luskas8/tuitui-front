@@ -3,9 +3,18 @@ import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as User } from '@assets/icons/User.svg'
 import { Button } from './Button'
 import { useNavigation } from '@hooks/useNavigation'
+import { useAuth } from '@hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 export function Navigation () {
+  const navigate = useNavigate()
+  const { logout } = useAuth()
   const { actionsArea, mainArea } = useNavigation()
+
+  function handleSignOut () {
+    logout()
+    navigate('/')
+  }
 
   return (
     <div className='w-full h-16 bg-white'>
@@ -20,8 +29,9 @@ export function Navigation () {
         <div data-name='user-area' className='w-36 max-h-12'>
           <Button.Tertiary
             className='h-full small inline-block'
-            title='Meu perfil'
+            title='Deslogar'
             icon={<User className='w-full h-full' />}
+            onClick={handleSignOut}
           />
         </div>
       </div>

@@ -41,11 +41,18 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   }
 
   useEffect(() => {
-    const user = getUserLocalStorage()
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    (async function fetchUser () {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises, no-new
+      new Promise<void>((resolve) => {
+        const user = getUserLocalStorage()
 
-    if (user) {
-      setUser(user)
-    }
+        if (user) {
+          setUser(user)
+        }
+        resolve()
+      })
+    })()
   }, [])
 
   return (

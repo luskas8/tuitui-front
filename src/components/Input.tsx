@@ -65,7 +65,7 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
 }
 
 Input.Item = ({ value, error, caption = true, type, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange, defaultValues }: InputItemProps) => {
-  const { setError } = useFormContext()
+  const { setError, clearErrors } = useFormContext()
 
   function handleChance (event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
@@ -76,6 +76,7 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
         value
       }
     })
+    clearErrors(name)
   }
 
   function handleBlur (e: any) {
