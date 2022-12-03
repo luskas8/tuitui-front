@@ -1,10 +1,12 @@
 import classnames from 'classnames'
 import React, { useState } from 'react'
-import { Control, Controller, FieldError } from 'react-hook-form'
+import { Control, Controller, FieldError, useFormContext } from 'react-hook-form'
 import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
 import { ReactComponent as Search } from '@assets/icons/Search.svg'
 import ReactTolltip from 'react-tooltip'
 import AsyncCreatableSelect from 'react-select/async-creatable'
+import { useAuth } from '@hooks/useAuth'
+import { searchSelect } from '@utils/searchSelect'
 
 interface Item {
   label: string
@@ -163,6 +165,8 @@ export function SelectText ({ control, name, ...rest }: SelectProps) {
 }
 
 function SelectTextItem ({ name, value, label, disabled, icon, helper, error, items, placeholder, onBlur, onChange }: SelectItemProps) {
+  const { token } = useAuth()
+  const { getValues } = useFormContext()
   const [isOpen, toggleCollapseState] = useState(false)
 
   function handleChance (event: any) {
@@ -179,11 +183,12 @@ function SelectTextItem ({ name, value, label, disabled, icon, helper, error, it
   }
 
   async function loadOptions (inputValue: string) {
-    return await new Promise<Item[]>((resolve) => {
-      resolve(items.filter((item) =>
-        item.label.toLowerCase().includes(inputValue.toLowerCase())
-      ))
+    const value = getValues()['search-type']
+    const response = await searchSelect(value ?? 'tags', inputValue, token)
+    const data = response.data.map((item: any) => {
+      return { value: item.tagName || item._id, label: item.username || item.tagName }
     })
+    return data
   }
 
   function handleBlur () {
