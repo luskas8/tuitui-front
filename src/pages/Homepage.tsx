@@ -60,6 +60,8 @@ interface SearchBarProps {
 
 function SearchBar ({ methods, updateArticle }: SearchBarProps) {
   const { token } = useAuth()
+  const { formState: { isValid, isSubmitting, isValidating } } = methods
+
   function submit (e: any) {
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -99,18 +101,11 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
           loading
           items={[]}
         />
-        {/* <Input
-          control={methods.control}
-          name='search-item'
-          caption={false}
-          placeholder='Digite sua pesquisa'
-          isRequired="Campo obrigatório"
-          classNameSize="w-auto"
-        /> */}
         <Button.Tertiary
           type='submit'
           icon={<Search className='w-full h-full' />}
           onClick={submit}
+          disabled={!isValid || isValidating || isSubmitting}
         />
       </Form>
     </div>

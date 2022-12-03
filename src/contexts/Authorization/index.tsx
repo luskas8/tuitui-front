@@ -5,9 +5,11 @@ import { getUserLocalStorage, LoginRequest, setUserLocalStorage, SignUpRequest }
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps)
 
 export function AuthProvider ({ children }: AuthProviderProps) {
+  const [loading, updateLoadState] = useState(false)
   const [user, setUser] = useState<UserProps | null>()
 
   async function authenticate (email: string, password: string) {
+    updateLoadState(true)
     const response = await LoginRequest(email, password)
 
     if (response.error) {
@@ -18,12 +20,22 @@ export function AuthProvider ({ children }: AuthProviderProps) {
 
     setUser(payload)
     setUserLocalStorage(payload)
+
+    setTimeout(() => {
+      updateLoadState(false)
+    }, 2000)
     return null
   }
 
   function logout () {
+    updateLoadState(true)
+
     setUser(null)
     setUserLocalStorage(null)
+
+    setTimeout(() => {
+      updateLoadState(false)
+    }, 1000)
   }
 
   async function signup (email: string, password: string, username: string) {
@@ -45,6 +57,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     (async function fetchUser () {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises, no-new
       new Promise<void>((resolve) => {
+        updateLoadState(true)
         const user = getUserLocalStorage()
 
         if (user) {
@@ -53,12 +66,16 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         resolve()
       })
     })()
+    setTimeout(() => {
+      updateLoadState(false)
+    }, 2000)
   }, [])
 
   return (
         <AuthContext.Provider
             value={{
               ...user,
+              loading,
               authenticate,
               signup,
               logout
