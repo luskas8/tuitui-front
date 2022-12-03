@@ -67,7 +67,7 @@ export function Article ({ author, content, tags, title }: ArticleType) {
           />
         </div>
       </header>
-      {!!tags.length && (
+      {tags && !!tags.length && (
         <section data-name='tags' className='w-full h-fit py-[10px] flex gap-[5px] flex-wrap'>
           {tags.map((tag, index) => {
             return (
