@@ -83,14 +83,14 @@ export function SignUp () {
                                 placeholder='Digite seu nome de usuário'
                                 isRequired='Campo obrigatório'
                                 icon
-                                helper={['O nome de usuário é como será conhecido no Tuitui.', 'Este não poderá ser alterado, então escolha bem!']}
+                                helper={['O nome de usuário é como será conhecido no Tuitui.']}
                             />
                             <Input
                                 control={methods.control}
                                 name="password"
                                 type="password"
                                 label='Senha'
-                                placeholder='Digite seu senha'
+                                placeholder='Digite sua senha'
                                 isRequired='Campo obrigatório'
                                 rules={{
                                   validate: (value: string) => value === methods.getValues()['check-password'] || 'As senhas devem ser iguais'
@@ -101,7 +101,7 @@ export function SignUp () {
                                 name="check-password"
                                 type="password"
                                 label='Confirmar senha'
-                                placeholder='Confirme sua nova senha'
+                                placeholder='Confirme sua senha'
                                 isRequired='Campo obrigatório'
                                 rules={{
                                   validate: (value: string) => value === methods.getValues().password || 'As senhas devem ser iguais'
@@ -116,7 +116,7 @@ export function SignUp () {
                                 disabled={!isValid || isValidating || isSubmitting}
                             />
                             <Button.Secondary
-                                title='Cancelar'
+                                title='Voltar para tela de Sign In'
                                 type='button'
                                 onClick={handleCancel}
                             />

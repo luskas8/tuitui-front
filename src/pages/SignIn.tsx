@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
@@ -104,15 +104,15 @@ export function SignIn () {
                                 name="password"
                                 type="password"
                                 label='Senha'
-                                placeholder='Digite seu senha'
+                                placeholder='Digite sua senha'
                                 isRequired='Campo obrigatório'
                             />
                         </FormGroup>
-                        <Link className='text-sm text-dark-purple font-normal text-center hover:text-purple'
+                        {/* <Link className='text-sm text-dark-purple font-normal text-center hover:text-purple'
                             to="/"
                         >
                             Esqueci minha senha
-                        </Link>
+                        </Link> */}
                         <div className='w-full flex flex-col gap-2 pt-8'>
                             <Button
                                 title='Entrar'
