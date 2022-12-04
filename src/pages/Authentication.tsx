@@ -9,9 +9,12 @@ export function Authentication () {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!loading && !token) {
-      navigate('/?code=401')
-    }
+    const timeout = setTimeout(() => {
+      if (!loading && !token) {
+        navigate('/?code=401')
+      }
+    }, 2000)
+    return () => clearTimeout(timeout)
   }, [loading, token])
 
   if (loading) {

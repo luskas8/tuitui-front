@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
@@ -22,7 +22,6 @@ export function SignIn () {
   const navigate = useNavigate()
 
   // TODO esperar rota de validação de token e esperar validar o token caso tenha, se não seguir
-  console.log('estou no login')
   if (token) {
     navigate('/app/homepage')
     return null
