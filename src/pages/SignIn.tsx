@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ReactComponent as Branding } from '@assets/branding/branding.svg'
 import { ReactComponent as Tuitui } from '@assets/branding/tuitui.svg'
 import { Button } from '@components/Button'
