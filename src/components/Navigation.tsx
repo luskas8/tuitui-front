@@ -5,13 +5,26 @@ import { Button } from './Button'
 import { useNavigation } from '@hooks/useNavigation'
 import { useAuth } from '@hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
+import { Menu, MenuItem } from '@mui/material'
 
 export function Navigation () {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
   const navigate = useNavigate()
   const { logout } = useAuth()
   const { actionsArea, mainArea } = useNavigation()
 
   function handleSignOut () {
+    setAnchorEl(null)
     logout()
     navigate('/')
   }
@@ -27,12 +40,30 @@ export function Navigation () {
           <div className='self-center w-auto h-full px-1 flex gap-2 justify-center items-center'>{actionsArea}</div>
         </div>
         <div data-name='user-area' className='w-36 max-h-12'>
+        <div>
           <Button.Tertiary
+            title='Meu perfil'
+            id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-expanded={open ? 'true' : 'false'}
+            aria-haspopup="true"
             className='h-full small inline-block'
-            title='Deslogar'
             icon={<User className='w-full h-full' />}
-            onClick={handleSignOut}
+            onClick={handleClick}
           />
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button'
+            }}
+          >
+            <MenuItem onClick={handleClose}>Mostrar perfil</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sair</MenuItem>
+          </Menu>
+        </div>
         </div>
       </div>
     </div>
