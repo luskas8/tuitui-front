@@ -43,8 +43,8 @@ export function Navigation () {
         <div>
           <Button.Tertiary
             title='Meu perfil'
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
+            id="tuitui-profile-button"
+            aria-controls={open ? 'tuitui-profile-menu' : undefined}
             aria-expanded={open ? 'true' : 'false'}
             aria-haspopup="true"
             className='h-full small inline-block'
@@ -52,12 +52,12 @@ export function Navigation () {
             onClick={handleClick}
           />
           <Menu
-            id="basic-menu"
+            id="tuitui-profile-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'tuitui-profile-button'
             }}
           >
             <MenuItem onClick={handleClose}>Mostrar perfil</MenuItem>
