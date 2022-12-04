@@ -22,7 +22,7 @@ export function SignIn () {
   const navigate = useNavigate()
 
   // TODO esperar rota de validação de token e esperar validar o token caso tenha, se não seguir
-
+  console.log('estou no login')
   if (token) {
     navigate('/app/homepage')
     return null

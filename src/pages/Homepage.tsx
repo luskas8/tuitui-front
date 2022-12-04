@@ -9,8 +9,8 @@ import { useAuth } from '@hooks/useAuth'
 import { useNavigation } from '@hooks/useNavigation'
 import Layout from '@layout'
 import { Article as ArticleType } from '@types'
-import { getAllArticles } from '@utils/getAllArticles'
-import { searchTags } from '@utils/searchTags'
+import { getAllArticles } from '@services/getAllArticles'
+import { searchTags } from '@services/searchTags'
 import React, { useEffect, useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -39,7 +39,7 @@ export function Homepage () {
         title='Novo artigo'
         icon={<FileText className='w-full h-full' />}
         onClick={() => {
-          navigate('/app/create/:userId')
+          navigate('/app/create/article')
         }}
       />
     ])

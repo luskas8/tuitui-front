@@ -23,7 +23,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
 
     setTimeout(() => {
       updateLoadState(false)
-    }, 2000)
+    }, 1500)
     return null
   }
 
@@ -68,7 +68,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     })()
     setTimeout(() => {
       updateLoadState(false)
-    }, 2000)
+    }, 1300)
   }, [])
 
   return (

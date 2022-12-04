@@ -80,8 +80,8 @@ export function Article ({ author, content, tags, title }: ArticleType) {
       )}
       <main className='flex flex-col gap-[10px] h-full text-ellipsis overflow-hidden'>
         <section className='w-full flex gap-[10px] items-center'>
-          <span className='font-normal text-sm'>{author.username}</span>
-          <time className='font-normal text-xs text-slate-400'>14:10</time>
+          <span className='font-normal text-sm text-slate-400'>{author.username}</span>
+          {/* <time className='font-normal text-xs text-slate-400'>14:10</time> */}
         </section>
         <main className='w-full h-full font-medium text-sm text-justify text-black'>
           {content}
@@ -122,11 +122,11 @@ Article.Container = ({ articles }: ArticleContainerProps) => {
   )
 }
 
-Article.Preview = ({ author, content, title }: ArticleType) => {
+Article.Preview = ({ author, content, title, _id }: ArticleType) => {
   const navigate = useNavigate()
 
   function handleReadMore () {
-    navigate('/app/view/:userId/:articleId')
+    navigate(`/app/view/${author._id}/${_id}`)
   }
 
   return (
@@ -142,8 +142,8 @@ Article.Preview = ({ author, content, title }: ArticleType) => {
       </header>
       <main className='flex flex-col gap-[10px] h-full text-ellipsis overflow-hidden'>
         <section className='w-full flex gap-[10px] items-center'>
-          <span className='font-normal text-sm'>{author.username}</span>
-          <time className='font-normal text-xs text-slate-400'>14:10</time>
+          <span className='font-normal text-sm text-slate-400'>{author.username}</span>
+          {/* <time className='font-normal text-xs text-slate-400'>14:10</time> */}
         </section>
         <main className='w-full h-full font-medium text-sm text-justify text-transparent bg-clip-text bg-gradient-to-b from-gray via-white'>
           {content}
