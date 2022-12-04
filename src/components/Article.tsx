@@ -114,7 +114,7 @@ Article.Container = ({ articles }: ArticleContainerProps) => {
     <section className='w-full h-full block'>
       {articles.map((article, index) => {
         return <Article.Preview
-          key={`article-${index}`}
+          key={`article-${article._id}`}
           {...article}
         />
       })}
