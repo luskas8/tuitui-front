@@ -6,10 +6,10 @@ export async function getAllArticles (data: any, token?: string) {
 
   const tags = [searchItem]
 
-  const requestData = searchType === 'tags' ? tags : searchItem
+  const requestData = searchType === 'tags' ? encodeURI(JSON.stringify(tags)) : searchItem
 
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const responseData = await Api.get(`/articles?${[searchType]}=${encodeURI(JSON.stringify(requestData))}`, {
+  const responseData = await Api.get(`/articles?${[searchType]}=${requestData}`, {
     headers: {
       Authorization: `Bearer ${token ?? ''}`
     }

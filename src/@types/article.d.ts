@@ -1,6 +1,9 @@
 export interface Article {
   _id: string
-  author: string
+  author: {
+    _id: string
+    username: string
+  }
   title: string
   content: string
   tags?: string[]

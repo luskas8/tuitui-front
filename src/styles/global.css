@@ -7,11 +7,11 @@
 }
 
 .tuitui-input.disabled {
-  @apply text-slate-400 pointer-events-none
+  @apply text-slate-400 cursor-not-allowed
 }
 
 .tuitui-input--block.disabled {
-  @apply border-slate-400 pointer-events-none
+  @apply border-slate-400 cursor-not-allowed
 }
 
 .tuitui-button {
@@ -19,7 +19,7 @@
   font-medium text-sm bg-dark-blue text-white fill-white rounded
   hover:bg-purple active:bg-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
-  disabled:bg-slate-400
+  disabled:bg-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button--icon {
@@ -38,14 +38,14 @@
   @apply bg-blue
   hover:bg-purple active:bg-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
-  disabled:bg-slate-400
+  disabled:bg-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button.danger {
   @apply bg-red-600
   hover:bg-red-400 active:bg-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-red-400
-  disabled:bg-slate-400
+  disabled:bg-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button.secondary {
@@ -54,7 +54,7 @@
   hover:border-purple hover:text-purple hover:fill-purple
   active:border-dark-black active:text-dark-black active:fill-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
-  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400
+  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button.secondary.small {
@@ -66,7 +66,7 @@
   hover:border-red-400 hover:text-red-400 hover:fill-red-400
   active:border-dark-black active:text-dark-black active:fill-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-red-400
-  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400
+  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button.tertiary {
@@ -75,7 +75,7 @@
   hover:text-purple hover:fill-purple
   active:border-dark-black active:text-dark-black active:fill-dark-black active:outline-none
   focus:outline focus:outline-4 focus:outline-purple
-  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400
+  disabled:border-slate-400 disabled:text-slate-400 disabled:fill-slate-400 disabled:cursor-not-allowed
 }
 
 .tuitui-button.tertiary.small {
@@ -88,38 +88,4 @@
 
 .tuitui-form.row {
   @apply flex-row items-center
-}
-
-.tuitui-select-container {
-  @apply w-full cursor-pointer text-black
-}
-
-.tuitui-select__control {
-  min-height: 0px !important;
-  @apply h-full cursor-pointer text-black
-}
-
-.tuitui-select__indicators {
-  @apply hidden cursor-pointer text-black
-}
-
-.tuitui-select__menu {
-  @apply cursor-pointer z-50 absolute mt-8 rounded-lg w-full bg-white flex flex-col p-4 drop-shadow-lg
-}
-
-.react-select__menu-list {
-  cursor: pointer !important;
-  @apply cursor-pointer text-black
-}
-
-.tuitui-select__option {
-  @apply cursor-pointer hover:bg-slate-300 pt-3 px-3 pb-[9px]
-}
-
-.tuitui-select__option--is-focused {
-  @apply bg-slate-300 !important
-}
-
-.tuitui-select__option--is-selected {
-  @apply bg-slate-400
 }

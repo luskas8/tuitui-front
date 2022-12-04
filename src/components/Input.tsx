@@ -105,10 +105,10 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
                   error,
                   disabled: loading || disabled
                 })}>
-                    <input className='w-full font-medium text-s order-1 flex items-center border-none outline-none disabled:bg-white'
+                    <input className='w-full font-medium text-s order-1 flex items-center border-none outline-none disabled:bg-white disabled:cursor-not-allowed'
                         placeholder={placeholder}
                         type={type}
-                        disabled={loading}
+                        disabled={loading || disabled}
                         value={value ?? ''}
                         onChange={handleChance}
                         onBlur={handleBlur}

@@ -31,6 +31,10 @@ export function getUserLocalStorage () {
   return user ?? null // mesmo que passe pela primeira verificação como algo inválido retorna nulo
 }
 
+export function destroyUserLocalStorage () {
+  localStorage.removeItem('u_tuitui_v1')
+}
+
 export async function SignUpRequest (email: string, password: string, username: string, description = 'This is a dummy description, change if you want') {
   try {
     const request = await Api.post('/users/signup', { userEmail: email, password, username, description })
