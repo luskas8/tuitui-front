@@ -89,3 +89,43 @@
 .tuitui-form.row {
   @apply flex-row items-center
 }
+
+.tuitui-article-content > p + p {
+  @apply mt-2
+}
+
+.tuitui-article-content > h1,
+.tuitui-article-content > h2,
+.tuitui-article-content > h3,
+.tuitui-article-content > h4,
+.tuitui-article-content > h5,
+.tuitui-article-content > h6 {
+  @apply pl-3 mb-3 first-letter:uppercase
+}
+
+.tuitui-article-content > h1 {
+  @apply font-bold text-xl text-black
+}
+.tuitui-article-content > h2 {
+  @apply font-medium text-lg text-black
+}
+.tuitui-article-content > h3 {
+  @apply font-normal text-base text-black
+}
+.tuitui-article-content > h4 {
+  @apply font-normal text-sm text-black
+}
+.tuitui-article-content > h5 {
+  @apply font-normal text-sm text-gray
+}
+.tuitui-article-content > h6 {
+  @apply font-normal text-sm text-slate-400
+}
+
+.tuitui-article-content > ul {
+  @apply list-disc list-inside
+}
+
+.tuitui-article-content > ol {
+  @apply list-decimal list-inside
+}

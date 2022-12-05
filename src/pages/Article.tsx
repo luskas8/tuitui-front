@@ -11,9 +11,9 @@ import { LoadSpinner } from '@components/Loading'
 import { useAuth } from '@hooks/useAuth'
 
 export function Article () {
+  const { id } = useAuth()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { articleId } = useParams<{ articleId: string }>()
-  const { id } = useAuth()
   const [currentArticle, setCurrentArticle] = useState<ArticleType | null>(null)
 
   const navigate = useNavigate()

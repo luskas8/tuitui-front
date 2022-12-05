@@ -5,11 +5,18 @@ import { ReactComponent as Edit } from '@assets/icons/Edit.svg'
 import { ReactComponent as DeleteOutlined } from '@assets/icons/DeleteOutlined.svg'
 import { ReactComponent as Sad } from '@assets/icons/Sad.svg'
 import { Button } from './Button'
+import { Markup } from 'react-render-markup'
 import { Article as ArticleType } from '@types'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '@hooks/useModal'
+import { useAuth } from '@hooks/useAuth'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
+// import { marked } from 'marked'
+// import DOMPurify from 'dompurify'
 
-export function Article ({ author, content, tags, title }: ArticleType) {
+export function Article ({ author, content, tags, title, _id }: ArticleType) {
+  const { id } = useAuth()
   const navigate = useNavigate()
   const { setValuesNShow } = useModal()
 
@@ -38,11 +45,11 @@ export function Article ({ author, content, tags, title }: ArticleType) {
   }
 
   function handleEditArticle () {
-    navigate('/app/create/:userId')
+    navigate(`/app/edit/${_id}`)
   }
 
   return (
-    <article className='tuitui-article--preview w-full h-fit rounded-lg bg-white py-[5px] px-2 overflow-hidden'>
+    <article className='tuitui-article--preview w-full h-full rounded-lg bg-white py-[5px] px-2 overflow-hidden'>
       <header className='flex justify-between items-center'>
         <div className='flex items-center gap-[10px]'>
           <Button.Tertiary
@@ -52,20 +59,22 @@ export function Article ({ author, content, tags, title }: ArticleType) {
           />
           <h1 className='first-letter:capitalize font-medium text-base text-black'>{title}</h1>
         </div>
-        <div className='flex gap-[5px]'>
-          <Button
-            className='small'
-            title='Editar'
-            icon={<Edit className='w-full h-full' />}
-            onClick={handleEditArticle}
-          />
-          <Button.Secondary
-            className='small danger'
-            title='Excluir'
-            icon={<DeleteOutlined className='w-full h-full' />}
-            onClick={handleDeleteArticle}
-          />
-        </div>
+        {id && id === author._id && (
+          <div className='flex gap-[5px]'>
+            <Button
+              className='small'
+              title='Editar'
+              icon={<Edit className='w-full h-full' />}
+              onClick={handleEditArticle}
+            />
+            <Button.Secondary
+              className='small danger'
+              title='Excluir'
+              icon={<DeleteOutlined className='w-full h-full' />}
+              onClick={handleDeleteArticle}
+            />
+          </div>
+        )}
       </header>
       {tags && !!tags.length && (
         <section data-name='tags' className='w-full h-fit py-[10px] flex gap-[5px] flex-wrap'>
@@ -83,8 +92,8 @@ export function Article ({ author, content, tags, title }: ArticleType) {
           <span className='font-normal text-sm text-slate-400'>{author.username}</span>
           {/* <time className='font-normal text-xs text-slate-400'>14:10</time> */}
         </section>
-        <main className='w-full h-full font-medium text-sm text-justify text-black'>
-          {content}
+        <main className='tuitui-article-content w-full h-full font-medium text-sm text-justify text-black'>
+          <Markup markup={DOMPurify.sanitize(marked.parse(content))} />
         </main>
       </main>
     </article>
@@ -145,8 +154,8 @@ Article.Preview = ({ author, content, title, _id }: ArticleType) => {
           <span className='font-normal text-sm text-slate-400'>{author.username}</span>
           {/* <time className='font-normal text-xs text-slate-400'>14:10</time> */}
         </section>
-        <main className='w-full h-full font-medium text-sm text-justify text-transparent bg-clip-text bg-gradient-to-b from-gray via-white'>
-          {content}
+        <main className='tuitui-article-content w-full h-full font-medium text-sm text-justify text-transparent bg-clip-text bg-gradient-to-b from-gray via-white'>
+          <Markup markup={DOMPurify.sanitize(marked.parse(content))} />
         </main>
       </main>
     </article>

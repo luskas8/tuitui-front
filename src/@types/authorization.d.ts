@@ -4,6 +4,7 @@ export interface UserProps {
   email?: string
   token?: string
   id?: string
+  username?: string
 }
 
 export interface AuthContextProps extends UserProps {

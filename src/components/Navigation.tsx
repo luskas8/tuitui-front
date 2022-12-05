@@ -20,7 +20,7 @@ export function Navigation () {
   }
 
   const navigate = useNavigate()
-  const { logout } = useAuth()
+  const { logout, username } = useAuth()
   const { actionsArea, mainArea } = useNavigation()
 
   function handleSignOut () {
@@ -39,10 +39,9 @@ export function Navigation () {
           <div className='self-center w-full h-full'>{mainArea}</div>
           <div className='self-center w-auto h-full px-1 flex gap-2 justify-center items-center'>{actionsArea}</div>
         </div>
-        <div data-name='user-area' className='w-36 max-h-12'>
-        <div>
+        <div data-name='user-area' className='max-w-36 max-h-12 pr-4'>
           <Button.Tertiary
-            title='Meu perfil'
+            title={username ?? ''}
             id="tuitui-profile-button"
             aria-controls={open ? 'tuitui-profile-menu' : undefined}
             aria-expanded={open ? 'true' : 'false'}
@@ -60,10 +59,9 @@ export function Navigation () {
               'aria-labelledby': 'tuitui-profile-button'
             }}
           >
-            <MenuItem onClick={handleClose}>Mostrar perfil</MenuItem>
+            <MenuItem onClick={handleClose}>Meu perfil</MenuItem>
             <MenuItem onClick={handleSignOut}>Sair</MenuItem>
           </Menu>
-        </div>
         </div>
       </div>
     </div>

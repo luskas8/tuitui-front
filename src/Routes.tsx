@@ -8,6 +8,7 @@ import { Profile } from '@pages/Profile'
 import { Article } from '@pages/Article'
 import loader from '@utils/loader'
 import { CreateArticle } from '@pages/CreateArticle'
+import { EditeArticle } from '@pages/EditArticle'
 
 export const routes = createBrowserRouter([
   {
@@ -42,8 +43,8 @@ export const routes = createBrowserRouter([
         element: <Article />
       },
       { // rota para editar o artigo
-        path: 'edit/:userId/:articleId',
-        element: <Article />
+        path: 'edit/:articleId',
+        element: <EditeArticle />
       },
       { // rota para criar artigo
         path: 'create/article',

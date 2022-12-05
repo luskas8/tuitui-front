@@ -8,3 +8,16 @@ export interface Article {
   content: string
   tags?: string[]
 }
+
+export interface ArticlePutProps {
+  articleId: string
+  title: string
+  content: string
+  tags?: string
+}
+
+export interface ArticleCreateProps {
+  title: string
+  content: string
+  tags?: string
+}
