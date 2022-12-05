@@ -9,4 +9,6 @@ declare module '*.svg' {
   export default src
 }
 
+declare module 'react-render-markup';
+
 /// <reference types="vite/client" />

@@ -1,3 +1,7 @@
+export interface ArticleTags {
+  tagName: string
+}
+
 export interface Article {
   _id: string
   author: {
@@ -6,7 +10,7 @@ export interface Article {
   }
   title: string
   content: string
-  tags?: string[]
+  tags?: string[ArticleTags]
 }
 
 export interface ArticlePutProps {
