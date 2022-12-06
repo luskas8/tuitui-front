@@ -36,7 +36,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input ({ isRequired, control, name, rules, defaultValue, ...rest }: InputProps) {
-  console.log('input controller', defaultValue)
   return (
     <Controller
       name={name}
@@ -50,7 +49,6 @@ export default function Input ({ isRequired, control, name, rules, defaultValue,
         fieldState: { error },
         formState: { defaultValues }
       }) => {
-        console.log('input value', defaultValues)
         return <Input.Item
           name={name}
           value={value}
@@ -87,7 +85,6 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
   }
 
   useEffect(() => {
-    console.log('value', value)
     onChange({
       target: {
         name,

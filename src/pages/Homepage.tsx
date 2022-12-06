@@ -107,14 +107,12 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
   }
 
   async function submit (data: any, fromRefresh = false) {
-    console.log('before', data)
     if (data['search-type'] === 'tags' && data['search-item'].value) {
       data['search-item'] = data['search-item'].value
     } else if (data['search-item'] === 'tags' && fromRefresh) {
       methods.setError('search-item', { message: 'Campo obrigatório' })
       return
     }
-    console.log('after', data)
     setSearchParams(data)
 
     if (data['search-type'] !== '' && data['search-item'] !== '') {
@@ -166,7 +164,7 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
         />
         {watchValues === 'tags'
           ? (
-            <TagSelect control={methods.control} tagList={tagList} name="search-item" placeholder='Digite sua pesquisa' />
+            <TagSelect submit={submit} control={methods.control} tagList={tagList} name="search-item" placeholder='Digite sua pesquisa' />
             )
           : (
           <Input
@@ -191,13 +189,14 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
 }
 
 interface TagSelectProps {
+  submit: (data: any) => Promise<void>
   control: Control<any>
   tagList: Item[]
   name: string
   placeholder: string
 }
 
-function TagSelect ({ control, tagList, name, placeholder }: TagSelectProps) {
+function TagSelect ({ control, tagList, name, placeholder, submit }: TagSelectProps) {
   return (
     <Controller
       name={name}
@@ -207,7 +206,7 @@ function TagSelect ({ control, tagList, name, placeholder }: TagSelectProps) {
         fieldState: { error },
         formState: { errors }
       }) => {
-        const { setError, clearErrors } = useFormContext()
+        const { setError, clearErrors, handleSubmit } = useFormContext()
         function handleOnChange (event: any, value: any) {
           onChange({
             target: {
@@ -216,10 +215,16 @@ function TagSelect ({ control, tagList, name, placeholder }: TagSelectProps) {
               value
             }
           })
+          // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+          if (value && value.value) {
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
+            handleSubmit(async (data) => {
+              await submit(data)
+            })()
+          }
         }
 
         function handleBlur (e: any) {
-          console.log(e.target.value)
           if (e.target.value === '' || e.target.value === null) {
             setError(name, { message: 'Campo obrigatório' })
           } else {
