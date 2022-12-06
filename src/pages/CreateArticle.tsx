@@ -35,7 +35,7 @@ export function CreateArticle () {
   })
 
   function handleCancelClick () {
-    navigate(-1)
+    navigate('/app/homepage')
   }
 
   function submit (e: any) {
