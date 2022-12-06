@@ -1,13 +1,15 @@
+import { ReactComponent as Close } from '@assets/icons/Close.svg'
+import { ReactComponent as Plus } from '@assets/icons/Plus.svg'
 import { Button } from '@components/Button'
 import { Form } from '@components/Form'
 import Input from '@components/Input'
 import { useNavigation } from '@hooks/useNavigation'
 import Layout from '@layout'
+import { createArticle } from '@services/createArticle'
+import { ArticleCreateProps } from '@types'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { createArticle } from '@services/createArticle'
-import { ArticleCreateProps } from '@types'
 
 interface FormValues {
   title: string
@@ -88,8 +90,43 @@ export function CreateArticle () {
             caption={true}
             captionText='Escreva até um máximo de 5000 caractéres'
           />
+          <div>
+            <h3 className='font-medium text-sm'>Adicionar tags</h3>
+            <TagsController
+            />
+          </div>
         </Form>
       </div>
     </Layout>
+  )
+}
+
+function TagsController () {
+  return (
+    <div className='flex gap-[5px] py-[10px]'>
+      <div
+        key={`article-tag-${1}`}
+        className="flex gap-4 justify-center items-center cursor-pointer hover:bg-alter-blue active:bg-smooth-blue w-fit px-[6px] py-2 bg-blue rounded-[4px] text-white font-medium first-letter:uppercase"
+      >
+        <span>
+          {/* {tagName} */}
+          tecnologia
+        </span>
+        <button className='flex justify-center items-center w-4 h-4 fill-white'>
+          <Close className='w-full h-full' />
+        </button>
+      </div>
+      <div
+        key={`article-tag-${2}`}
+        className="flex gap-4 justify-center items-center cursor-pointer hover:bg-slate-200 active:bg-zinc-300 w-fit px-[6px] py-2 bg-white border-[2px] border-solid border-slate-300 rounded-[4px] text-slate-400 font-medium first-letter:uppercase"
+      >
+        <span>
+          Adicionar
+        </span>
+        <button className='flex justify-center items-center w-4 h-4 fill-slate-400'>
+          <Plus className='w-full h-full' />
+        </button>
+      </div>
+    </div>
   )
 }

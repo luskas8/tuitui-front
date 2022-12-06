@@ -6,7 +6,7 @@ import Layout from '@layout'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Article as ArticleType, ArticlePutProps } from '@types'
+import { Article as ArticleType, ArticlePutProps, ArticleTags } from '@types'
 import { LoadSpinner } from '@components/Loading'
 import { getArticleById } from '@services/getArticleById'
 import { editArticle } from '@services/editArticle'
@@ -15,7 +15,7 @@ interface FormValues {
   _id: string
   title: string
   content: string
-  tags?: string
+  tags?: ArticleTags[]
 }
 
 export function EditeArticle () {
@@ -29,7 +29,7 @@ export function EditeArticle () {
     defaultValues: {
       title: '',
       content: '',
-      tags: ''
+      tags: []
     }
   })
 
@@ -45,12 +45,12 @@ export function EditeArticle () {
         articleId: data._id,
         title: data.title,
         content: data.content,
-        tags: data.tags !== '[]' ? JSON.stringify(String(data.tags).replace(/\[\]/, '')) : undefined
+        tags: data.tags
       })
       await editArticle(response)
       // setTimeout(() => {
       setLoadingState(false)
-      navigate(-1)
+      navigate('/app/homepage')
       // }, 800)
     })()
   }
@@ -89,7 +89,7 @@ export function EditeArticle () {
     if (!currentArticle.loading) {
       methods.setValue('title', currentArticle.data.title)
       methods.setValue('content', currentArticle.data.content)
-      methods.setValue('tags', JSON.stringify(currentArticle.data.tags))
+      methods.setValue('tags', currentArticle.data.tags)
       methods.setValue('_id', currentArticle.data._id)
       console.log(currentArticle)
     }

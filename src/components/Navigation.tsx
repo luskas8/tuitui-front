@@ -30,7 +30,7 @@ export function Navigation () {
   }
 
   function handleHomepage () {
-    navigate('/app/homepage')
+    window.location.href = '/app/homepage'
   }
 
   return (

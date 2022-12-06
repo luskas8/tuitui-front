@@ -17,7 +17,7 @@ export interface ArticlePutProps {
   articleId: string
   title: string
   content: string
-  tags?: string
+  tags?: ArticleTags[]
 }
 
 export interface ArticleCreateProps {
