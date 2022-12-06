@@ -58,7 +58,7 @@ export function EditeArticle () {
       await editArticle(response)
       // setTimeout(() => {
       setLoadingState(false)
-      // navigate('/app/homepage')
+      navigate('/app/homepage')
       // }, 800)
     })()
   }
@@ -183,7 +183,7 @@ function TagsController ({ tags, updateTags }: TagControllerProps) {
 
   return (
     <div className='flex gap-[5px] py-[10px] w-full max-w-full flex-wrap'>
-      {tags.map((tag, index) => {
+      {!!tags.length && tags.map((tag, index) => {
         return (
           <div
           key={`article-tag-${index}`}

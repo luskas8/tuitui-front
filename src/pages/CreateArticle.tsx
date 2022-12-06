@@ -148,7 +148,7 @@ function TagsController ({ tags, updateTags }: TagControllerProps) {
 
   return (
     <div className='flex gap-[5px] py-[10px]'>
-      {tags.map((tag, index) => {
+      {!!tags.length && tags.map((tag, index) => {
         return (
           <div
           key={`article-tag-${index}`}
