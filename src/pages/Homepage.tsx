@@ -9,12 +9,12 @@ import { useNavigation } from '@hooks/useNavigation'
 import Layout from '@layout'
 import { Article as ArticleType, Item } from '@types'
 import { getAllArticles } from '@services/getAllArticles'
-import { searchTags } from '@services/searchTags'
 import React, { useEffect, useState } from 'react'
 import { Control, Controller, FieldValues, useForm, useFormContext, UseFormReturn } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Autocomplete, TextField } from '@mui/material'
 import { isString } from 'lodash'
+import { getTagList } from '@utils/getTagList'
 
 interface FormValues {
   'search-type': string
@@ -119,15 +119,6 @@ function SearchBar ({ methods, updateArticle }: SearchBarProps) {
       const articles = await getAllArticles(data)
       updateArticle(articles.data)
     }
-  }
-
-  async function getTagList () {
-    const response: any = await searchTags()
-    const tags = response.data.map((tag: any) => {
-      return { label: tag.tagName, value: tag.tagName }
-    })
-
-    return tags
   }
 
   return (

@@ -13,6 +13,13 @@ export async function editArticle (data: ArticlePutProps) {
         }
       })
 
+      const tagList = data.tags?.map(tag => tag.tagName)
+      await Api.post('/tags', { tagList }, {
+        headers: {
+          Authorization: `Bearer ${user.token ?? ''}`
+        }
+      })
+
       return response.data
     } catch (err) {
       console.log(err)
