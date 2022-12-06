@@ -29,10 +29,14 @@ export function Navigation () {
     navigate('/')
   }
 
+  function handleHomepage () {
+    navigate('/app/homepage')
+  }
+
   return (
     <div className='w-full h-16 bg-white'>
       <div className='w-full h-full flex justify-between items-center'>
-        <div data-name='logo-area' className='h-full py-2 pr-[1px] pl-4'>
+        <div onClick={handleHomepage} data-name='logo-area' className='h-full py-2 pr-[1px] pl-4 cursor-pointer'>
           <Branding width="100%" height="100%" />
         </div>
         <div data-name='action-area' className='flex items-center w-full h-full'>
@@ -46,7 +50,7 @@ export function Navigation () {
             aria-controls={open ? 'tuitui-profile-menu' : undefined}
             aria-expanded={open ? 'true' : 'false'}
             aria-haspopup="true"
-            className='h-full small inline-block'
+            className='h-full small inline-block overflow-hidden text-ellipsis'
             icon={<User className='w-full h-full' />}
             onClick={handleClick}
           />

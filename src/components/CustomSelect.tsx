@@ -145,19 +145,9 @@ const CustomSelect = React.forwardRef(function CustomSelect<TValue extends Item>
   return <SelectUnstyled {...props} ref={ref} slots={slots} />
 })
 
-function renderValue (option: SelectOption<Item> | null, placeholder: string, name: string, onChange: any) {
-  useEffect(() => {
-    onChange({
-      target: {
-        name,
-        type: 'input',
-        value: option?.value
-      }
-    })
-  }, [option])
-
+function renderValue (option: SelectOption<Item> | null, placeholder: string, name: string, items: Item[], defaultValue?: string) {
   if (option == null) {
-    return <span className='font-normal text-sm text-slate-400'>{placeholder}</span>
+    return <span className={classnames('font-normal text-sm ', { 'text-slate-400': !defaultValue, 'text-black': defaultValue })}>{items.find(item => item.value === defaultValue)?.label ?? placeholder}</span>
   }
 
   return (
@@ -172,17 +162,35 @@ interface SelectProps {
   name: string
   items: Item[]
   lg?: boolean
+  defaultValue?: any
+  defaultChange?: () => void
 }
 
-export function Select ({ items, name, placeholder, error, onChange, lg }: SelectProps) {
+export function Select ({ items, name, placeholder, error, onChange, lg, defaultValue, defaultChange }: SelectProps) {
+  function handleOnChange (event: any, value: any) {
+    onChange({
+      target: {
+        name,
+        type: 'input',
+        value
+      }
+    })
+
+    if (defaultChange) {
+      defaultChange()
+    }
+  }
+
   return (
     <CustomSelect
       className={classnames('flex justify-between rounded-sm bg-white border border-solid border-dark-gray focus-within:border-purple focus-within:outline-purple focus-within:outline focus-within:outline-4', {
         'border-red-600': error,
         'w-[320px]': lg
       })}
+      onChange={handleOnChange}
       placeholder={placeholder}
-      renderValue={(option) => renderValue(option, placeholder, name, onChange)}
+      renderValue={(option) => renderValue(option, placeholder, name, items, defaultValue[name])}
+      defaultValue={defaultValue[name] ? { label: defaultValue[name], value: defaultValue[name] } : null}
     >
       {items.map((item, index) => {
         return <StyledOption

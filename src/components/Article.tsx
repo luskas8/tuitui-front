@@ -12,8 +12,6 @@ import { useModal } from '@hooks/useModal'
 import { useAuth } from '@hooks/useAuth'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
-// import { marked } from 'marked'
-// import DOMPurify from 'dompurify'
 
 export function Article ({ author, content, tags, title, _id }: ArticleType) {
   const { id } = useAuth()

@@ -1,11 +1,16 @@
+import { getUserLocalStorage } from '@contexts/Authorization/utils'
 import { Api } from '@services/api'
 
 export async function searchTags (token?: string) {
-  const responseData = await Api.get('/tags', {
-    headers: {
-      Authorization: `Bearer ${token ?? ''}`
-    }
-  })
+  const user = getUserLocalStorage()
 
-  return responseData.data
+  if (user) {
+    const responseData = await Api.get('/tags', {
+      headers: {
+        Authorization: `Bearer ${user.token ?? ''}`
+      }
+    })
+
+    return responseData.data
+  }
 }

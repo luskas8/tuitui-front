@@ -17,15 +17,18 @@ interface SelectProps {
   placeholder: string
   items: Item[]
   lg?: boolean
+  required?: string
+  defaultValue?: any
+  defaultChange?: () => void
 }
 
-export function Select ({ control, name, ...rest }: SelectProps) {
+export function Select ({ control, name, required, defaultValue, defaultChange, ...rest }: SelectProps) {
   return (
     <Controller
       name={name}
       control={control}
       rules={{
-        required: 'Campo obrigatório'
+        required
       }}
       render={({
         field: { onChange },
@@ -35,6 +38,8 @@ export function Select ({ control, name, ...rest }: SelectProps) {
           name={name}
           error={error}
           onChange={onChange}
+          defaultValue={defaultValue}
+          defaultChange={defaultChange}
           {...rest}
         />
       }}

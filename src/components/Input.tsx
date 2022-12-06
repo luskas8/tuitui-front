@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react'
+import React, { ChangeEvent, InputHTMLAttributes, useEffect, useState } from 'react'
 import { Control, Controller, FieldError, useFormContext } from 'react-hook-form'
 import { ReactComponent as Helper } from '@assets/icons/Exclamation-Circle.svg'
 import ReactTolltip from 'react-tooltip'
@@ -35,7 +35,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   rules?: Rules
 }
 
-export default function Input ({ isRequired, control, name, rules, ...rest }: InputProps) {
+export default function Input ({ isRequired, control, name, rules, defaultValue, ...rest }: InputProps) {
+  console.log('input controller', defaultValue)
   return (
     <Controller
       name={name}
@@ -49,6 +50,7 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
         fieldState: { error },
         formState: { defaultValues }
       }) => {
+        console.log('input value', defaultValues)
         return <Input.Item
           name={name}
           value={value}
@@ -56,7 +58,6 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
           onBlur={onBlur}
           onChange={onChange}
           isRequired={isRequired}
-          defaultValues={defaultValues}
           {...rest}
         />
       }}
@@ -64,7 +65,7 @@ export default function Input ({ isRequired, control, name, rules, ...rest }: In
   )
 }
 
-Input.Item = ({ value, error, caption = true, type, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange, defaultValues }: InputItemProps) => {
+Input.Item = ({ value, error, caption = true, type, icon = false, helper, label, loading = false, name, isRequired, placeholder, disabled = false, classNameSize, onChange }: InputItemProps) => {
   const { setError, clearErrors } = useFormContext()
 
   function handleChance (event: ChangeEvent<HTMLInputElement>) {
@@ -84,6 +85,17 @@ Input.Item = ({ value, error, caption = true, type, icon = false, helper, label,
       setError(name, { message: 'Campo obrigatório', type: 'required' })
     }
   }
+
+  useEffect(() => {
+    console.log('value', value)
+    onChange({
+      target: {
+        name,
+        type: 'input',
+        value
+      }
+    })
+  }, [value])
 
   return (
         <div className={String('w-full ').concat(String(classNameSize ?? ''))}>

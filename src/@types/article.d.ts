@@ -10,7 +10,7 @@ export interface Article {
   }
   title: string
   content: string
-  tags?: string[ArticleTags]
+  tags?: ArticleTags[]
 }
 
 export interface ArticlePutProps {
